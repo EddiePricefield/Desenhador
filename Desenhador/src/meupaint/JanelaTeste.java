@@ -25,14 +25,14 @@ public class JanelaTeste extends JFrame{
         setTitle( "Minha Janela de Teste" );
         setDefaultCloseOperation( EXIT_ON_CLOSE ); //Quando fechamos a janela, por padrão, nós escondemos a janela apenas e não fechamos a janela. É necessário trocar o comportamento (ele da um system.exit).
         setSize( 800, 600 ); //Definir o tamanho da tela
-        setLocationRelativeTo(null); //Colocar a localização relativa a ninguém (faz a tela centralizar)
+        setLocationRelativeTo( null ); //Colocar a localização relativa a ninguém (faz a tela centralizar)
         
         //Construção do Botão
         botao = new JButton( "NÃO CLICA D:" ); 
-        botao.addActionListener(new ActionListener() { //Criação de uma Classe Interna Anônima
+        botao.addActionListener( new ActionListener() { //Criação de uma Classe Interna Anônima
             @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("PARA, EU FALEI PRA NÃO CLICAR");//Quando clicar no botão, vai executar esse método
+            public void actionPerformed( ActionEvent e ) {
+                System.out.println( "PARA, EU FALEI PRA NÃO CLICAR" );//Quando clicar no botão, vai executar esse método
             }
             
         }); //Evento de Ação é quando você clica no botão 

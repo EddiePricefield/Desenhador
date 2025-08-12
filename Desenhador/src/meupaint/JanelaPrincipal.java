@@ -397,14 +397,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     private void painelAvatarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelAvatarMouseEntered
         
-        painelAvatar.setImagemParada(false);
+        painelAvatar.setImagemParada( false );
         painelAvatar.repaint();
         
     }//GEN-LAST:event_painelAvatarMouseEntered
 
     private void painelAvatarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelAvatarMouseExited
 
-        painelAvatar.setImagemParada(true);
+        painelAvatar.setImagemParada( true );
         painelAvatar.repaint();
         
     }//GEN-LAST:event_painelAvatarMouseExited

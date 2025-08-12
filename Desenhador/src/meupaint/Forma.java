@@ -35,31 +35,31 @@ public abstract class Forma {
     public abstract void desenhar( Graphics g ); //O tipo de desenhar é escolhido pelo tipo de objeto e não pela referência. O nome disso é: Vinculação Dinâmica (para funcionar em C++ tem que fazer alocação dinâmica de memória, as formas precisam ser ponteiros)
 
     //Métodos Set
-    public void setX1(int x1) {
+    public void setX1( int x1 ) {
         this.x1 = x1;
     }
 
-    public void setY1(int y1) {
+    public void setY1( int y1 ) {
         this.y1 = y1;
     }
 
-    public void setX2(int x2) {
+    public void setX2( int x2 ) {
         this.x2 = x2;
     }
 
-    public void setY2(int y2) {
+    public void setY2( int y2 ) {
         this.y2 = y2;
     }
 
-    public void setContorno(Color contorno) {
+    public void setContorno( Color contorno ) {
         this.contorno = contorno;
     }
 
-    public void setPreenchimento(Color preenchimento) {
+    public void setPreenchimento( Color preenchimento ) {
         this.preenchimento = preenchimento;
     }
 
-    public void setTamanhoContorno(int tamanhoContorno) {
+    public void setTamanhoContorno( int tamanhoContorno ) {
         this.tamanhoContorno = tamanhoContorno;
     }
     

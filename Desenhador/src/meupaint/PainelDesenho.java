@@ -27,13 +27,6 @@ public class PainelDesenho extends JPanel{
     @Override
     protected void paintComponent( Graphics g ) {
         super.paintComponent( g ); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-
-// O Professor fez isso para meio que dar uma borda preta na área de desenho, mas a minha área já tinha uma borda. Vou deixar aqui pra ver se fica melhor ou não.        
-//        g.setColor(Color.white);
-//        g.fillRect(0, 0, getWidth(), getHeight());
-//        
-//        g.setColor(Color.black);
-//        g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
         
         if ( formaTemp != null ){ //Evitar o NullPointerException porque aqui seria inicializado como null
             formaTemp.desenhar( g );
@@ -45,7 +38,7 @@ public class PainelDesenho extends JPanel{
         
     } 
 
-    public void setFormaTemp(Forma formaTemp) { //Criar a forma
+    public void setFormaTemp( Forma formaTemp ) { //Criar a forma
         this.formaTemp = formaTemp;
     }
     
