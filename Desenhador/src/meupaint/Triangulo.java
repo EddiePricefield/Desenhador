@@ -14,8 +14,8 @@ import java.awt.Graphics2D;
  */
 public class Triangulo extends Forma{ //Ao invés de fazer uma lista para cada coordenada, criamos um objeto que contém as 4 coordenadas e colocamos esses objetos na lista
     
-    private int[] xPoints = new int[3];
-    private int[] yPoints = new int[3];
+    private int[] xPoints;
+    private int[] yPoints;
     
     @Override
     public void desenhar( Graphics g ){
@@ -28,13 +28,9 @@ public class Triangulo extends Forma{ //Ao invés de fazer uma lista para cada c
        int y2d = y1 > y2 ? y1 : y2;
        
        //Construindo um triângulo isósceles com base no retângulo construído pelo mouse
-       xPoints[0] = x1d; 
-       xPoints[1] = ( x2d + x1d ) / 2;
-       xPoints[2] = x2d;
        
-       yPoints[0] = y2d;
-       yPoints[1] = y1d;
-       yPoints[2] = y2d;
+       xPoints = new int[]{x1d, ( x2d + x1d ) / 2, x2d};
+       yPoints = new int[]{y2d, y1d, y2d} ;      
        
        Graphics2D g2 = ( Graphics2D ) g.create();
        
