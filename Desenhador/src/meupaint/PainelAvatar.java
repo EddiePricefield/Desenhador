@@ -13,34 +13,34 @@ import javax.swing.JPanel;
  *
  * @author Eddie
  */
-public class PainelAvatar extends JPanel{
-    
+public class PainelAvatar extends JPanel {
+
     private boolean imagemParada;
     private ImageIcon avatarFrame;
     private ImageIcon avatarMove;
-    
-    public PainelAvatar(){
-        
+
+    public PainelAvatar() {
+
         imagemParada = true;
-        avatarFrame = new ImageIcon( getClass().getResource( "/images/AvatarFrame.png" ) );
-        avatarMove = new ImageIcon( getClass().getResource( "/images/AvatarMove.gif" ) );
-        
-    }
-    
-    @Override
-    protected void paintComponent( Graphics g ) {
-        super.paintComponent( g );
-        
-        if ( imagemParada ) {
-            g.drawImage( avatarFrame.getImage(), 0, 0, getWidth(), getHeight(), this );
-        } else {
-            g.drawImage( avatarMove.getImage(), 0, 0, getWidth(), getHeight(), this );
-        }
-        
+        avatarFrame = new ImageIcon(getClass().getResource("/images/AvatarFrame.png"));
+        avatarMove = new ImageIcon(getClass().getResource("/images/AvatarMove.gif"));
+
     }
 
-    public void setImagemParada( boolean imagemParada ) {
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        if (imagemParada) {
+            g.drawImage(avatarFrame.getImage(), 0, 0, getWidth(), getHeight(), this);
+        } else {
+            g.drawImage(avatarMove.getImage(), 0, 0, getWidth(), getHeight(), this);
+        }
+
+    }
+
+    public void setImagemParada(boolean imagemParada) {
         this.imagemParada = imagemParada;
     }
-    
+
 }

@@ -16,15 +16,15 @@ public class MeuPaint {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
-        try{
-            UIManager.setLookAndFeel( "javax.swing.plaf.nimbus.NimbusLookAndFeel" );
-        } catch ( Exception e ){
+
+        try {
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         JanelaPrincipal janela = new JanelaPrincipal();
-        janela.setVisible( true );
+        janela.setVisible(true);
     }
-    
+
 }

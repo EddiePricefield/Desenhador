@@ -12,7 +12,7 @@ import javax.swing.JColorChooser;
  * @author Eddie
  */
 public class JanelaPrincipal extends javax.swing.JFrame {
-    
+
     private Forma forma;
 
     /**
@@ -20,7 +20,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
      */
     public JanelaPrincipal() {
         initComponents();
-    }   
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -300,45 +300,45 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void painelDesenhoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelDesenhoMousePressed
-        
-        if( btnLinha.isSelected( )){
+
+        if (btnLinha.isSelected()) {
             forma = new Linha(); //A linha é uma forma, então o objeto que a forma está apontando no Heap é do tipo Linha.
-        } else if( btnRetangulo.isSelected() ){
+        } else if (btnRetangulo.isSelected()) {
             forma = new Retangulo(); //Caso selecione isso, ele começa a apontar para o objeto do tipo Retângulo
-        } else if( btnElipse.isSelected() ){
+        } else if (btnElipse.isSelected()) {
             forma = new Elipse();
-        } else if( btnTriangulo.isSelected( )){
+        } else if (btnTriangulo.isSelected()) {
             forma = new Triangulo();
         }
-        
-        forma.setTamanhoContorno( sliderContorno.getValue() );
-        forma.setX1( evt.getX() );
-        forma.setY1( evt.getY() );
-        forma.setContorno( painelContorno.getBackground() );
-        forma.setPreenchimento( painelPreenchimento.getBackground() );
-        
+
+        forma.setTamanhoContorno(sliderContorno.getValue());
+        forma.setX1(evt.getX());
+        forma.setY1(evt.getY());
+        forma.setContorno(painelContorno.getBackground());
+        forma.setPreenchimento(painelPreenchimento.getBackground());
+
     }//GEN-LAST:event_painelDesenhoMousePressed
 
     private void painelDesenhoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelDesenhoMouseReleased
-              
-        forma.setX2( evt.getX() );
-        forma.setY2( evt.getY() );
-        painelDesenho.addFormaTemp( forma );
-        painelDesenho.setFormaTemp( null );
-        
+
+        forma.setX2(evt.getX());
+        forma.setY2(evt.getY());
+        painelDesenho.addFormaTemp(forma);
+        painelDesenho.setFormaTemp(null);
+
         painelDesenho.repaint();
-        
+
     }//GEN-LAST:event_painelDesenhoMouseReleased
 
     private void painelDesenhoMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelDesenhoMouseDragged
-        
-        forma.setX2( evt.getX() );
-        forma.setY2( evt.getY() );
-        painelDesenho.addFormaTemp( forma );
-        painelDesenho.setFormaTemp( null );
-        
+
+        forma.setX2(evt.getX());
+        forma.setY2(evt.getY());
+        painelDesenho.addFormaTemp(forma);
+        painelDesenho.setFormaTemp(null);
+
         painelDesenho.repaint();
-        
+
     }//GEN-LAST:event_painelDesenhoMouseDragged
 
     private void btnRetanguloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetanguloActionPerformed
@@ -359,36 +359,36 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnElipseActionPerformed
 
     private void painelContornoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelContornoMouseClicked
-    
+
         Color c = JColorChooser.showDialog(
-            this, 
-            "Cor do Contorno", 
-            painelContorno.getBackground() );
-     
-        if (c != null){
-            painelContorno.setBackground( c );
-            
-    }
-    
+                this,
+                "Cor do Contorno",
+                painelContorno.getBackground());
+
+        if (c != null) {
+            painelContorno.setBackground(c);
+
+        }
+
     }//GEN-LAST:event_painelContornoMouseClicked
 
     private void painelPreenchimentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelPreenchimentoMouseClicked
-    
+
         Color c = JColorChooser.showDialog(
-            this, 
-            "Cor do Preenchimento", 
-            painelPreenchimento.getBackground() );
-     
-        if (c != null){
-            painelPreenchimento.setBackground( c );
-    }
-    
+                this,
+                "Cor do Preenchimento",
+                painelPreenchimento.getBackground());
+
+        if (c != null) {
+            painelPreenchimento.setBackground(c);
+        }
+
     }//GEN-LAST:event_painelPreenchimentoMouseClicked
 
     private void sliderContornoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderContornoStateChanged
-        
-        labelContorno.setText( ( String.valueOf( sliderContorno.getValue() ) ) );
-        
+
+        labelContorno.setText((String.valueOf(sliderContorno.getValue())));
+
     }//GEN-LAST:event_sliderContornoStateChanged
 
     private void btnConfigsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfigsActionPerformed
@@ -396,20 +396,19 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConfigsActionPerformed
 
     private void painelAvatarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelAvatarMouseEntered
-        
-        painelAvatar.setImagemParada( false );
+
+        painelAvatar.setImagemParada(false);
         painelAvatar.repaint();
-        
+
     }//GEN-LAST:event_painelAvatarMouseEntered
 
     private void painelAvatarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelAvatarMouseExited
 
-        painelAvatar.setImagemParada( true );
+        painelAvatar.setImagemParada(true);
         painelAvatar.repaint();
-        
+
     }//GEN-LAST:event_painelAvatarMouseExited
-    
-                    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfigs;
