@@ -18,11 +18,12 @@ public abstract class Forma {
     protected int y1;
     protected int x2;
     protected int y2;
-
+   
     //Variáveis para as cores da Forma
     protected Color contorno;
     protected Color preenchimento;
-
+    
+    //Variável para grossura
     protected int tamanhoContorno;
 
     //Construtor 

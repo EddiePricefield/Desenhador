@@ -6,6 +6,7 @@ package meupaint;
 
 import java.awt.Color;
 import javax.swing.JColorChooser;
+import javax.swing.JSpinner.DefaultEditor;
 
 /**
  *
@@ -20,6 +21,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
      */
     public JanelaPrincipal() {
         initComponents();
+        ((DefaultEditor) ladosSpinner.getEditor()).getTextField().setEditable(false);
     }
 
     /**
@@ -38,6 +40,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         btnRetangulo = new javax.swing.JToggleButton();
         btnElipse = new javax.swing.JToggleButton();
         btnTriangulo = new javax.swing.JToggleButton();
+        btnPoligono = new javax.swing.JToggleButton();
+        ladosSpinner = new javax.swing.JSpinner();
         sliderContorno = new javax.swing.JSlider();
         painelContorno = new javax.swing.JPanel();
         painelPreenchimento = new javax.swing.JPanel();
@@ -70,11 +74,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         painelDesenho.setLayout(painelDesenhoLayout);
         painelDesenhoLayout.setHorizontalGroup(
             painelDesenhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 686, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         painelDesenhoLayout.setVerticalGroup(
             painelDesenhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 316, Short.MAX_VALUE)
+            .addGap(0, 408, Short.MAX_VALUE)
         );
 
         panelFormas.setBorder(javax.swing.BorderFactory.createTitledBorder("Formas"));
@@ -109,6 +113,13 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         buttonGroup.add(btnTriangulo);
         btnTriangulo.setText("Triângulo");
+
+        buttonGroup.add(btnPoligono);
+        btnPoligono.setText("Polígono");
+
+        ladosSpinner.setModel(new javax.swing.SpinnerNumberModel(5, 3, null, 1));
+        ladosSpinner.setToolTipText("Lados do Polígono Regular");
+        ladosSpinner.setFocusCycleRoot(true);
 
         sliderContorno.setMaximum(10);
         sliderContorno.setMinimum(1);
@@ -179,7 +190,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnElipse)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnTriangulo, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnTriangulo)
+                .addGap(5, 5, 5)
+                .addComponent(btnPoligono)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ladosSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(painelContorno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -202,7 +217,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                     .addComponent(painelPreenchimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sliderContorno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelContorno)
-                    .addComponent(btnTriangulo))
+                    .addComponent(btnTriangulo)
+                    .addComponent(btnPoligono)
+                    .addComponent(ladosSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -309,6 +326,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             forma = new Elipse();
         } else if (btnTriangulo.isSelected()) {
             forma = new Triangulo();
+        } else if (btnPoligono.isSelected()) {
+            forma = new Poligono((int)(ladosSpinner.getValue()));
         }
 
         forma.setTamanhoContorno(sliderContorno.getValue());
@@ -414,11 +433,13 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnConfigs;
     private javax.swing.JToggleButton btnElipse;
     private javax.swing.JToggleButton btnLinha;
+    private javax.swing.JToggleButton btnPoligono;
     private javax.swing.JButton btnRefresh;
     private javax.swing.JToggleButton btnRetangulo;
     private javax.swing.JToggleButton btnTriangulo;
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JLabel labelContorno;
+    private javax.swing.JSpinner ladosSpinner;
     private meupaint.PainelAvatar painelAvatar;
     private javax.swing.JPanel painelContorno;
     private meupaint.PainelDesenho painelDesenho;
