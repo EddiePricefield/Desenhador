@@ -46,6 +46,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         painelContorno = new javax.swing.JPanel();
         painelPreenchimento = new javax.swing.JPanel();
         labelContorno = new javax.swing.JLabel();
+        btnUndo = new javax.swing.JButton();
+        btnRedo = new javax.swing.JButton();
         painelOpcoes = new javax.swing.JPanel();
         btnRefresh = new javax.swing.JButton();
         btnConfigs = new javax.swing.JButton();
@@ -74,11 +76,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         painelDesenho.setLayout(painelDesenhoLayout);
         painelDesenhoLayout.setHorizontalGroup(
             painelDesenhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 986, Short.MAX_VALUE)
         );
         painelDesenhoLayout.setVerticalGroup(
             painelDesenhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 408, Short.MAX_VALUE)
+            .addGap(0, 508, Short.MAX_VALUE)
         );
 
         panelFormas.setBorder(javax.swing.BorderFactory.createTitledBorder("Formas"));
@@ -178,6 +180,22 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         labelContorno.setText("1");
 
+        btnUndo.setText("↩");
+        btnUndo.setToolTipText("Desfazer");
+        btnUndo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUndoActionPerformed(evt);
+            }
+        });
+
+        btnRedo.setText("↪");
+        btnRedo.setToolTipText("Refazer");
+        btnRedo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRedoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelFormasLayout = new javax.swing.GroupLayout(panelFormas);
         panelFormas.setLayout(panelFormasLayout);
         panelFormasLayout.setHorizontalGroup(
@@ -196,6 +214,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ladosSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnUndo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRedo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(painelContorno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelPreenchimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -219,7 +241,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                     .addComponent(labelContorno)
                     .addComponent(btnTriangulo)
                     .addComponent(btnPoligono)
-                    .addComponent(ladosSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ladosSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUndo)
+                    .addComponent(btnRedo))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -270,9 +294,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             .addGroup(painelOpcoesLayout.createSequentialGroup()
                 .addComponent(painelAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnConfigs, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRefresh))
+                .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnConfigs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelOpcoesLayout.setVerticalGroup(
@@ -353,8 +377,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         forma.setX2(evt.getX());
         forma.setY2(evt.getY());
-        painelDesenho.addFormaTemp(forma);
-        painelDesenho.setFormaTemp(null);
+        
+        painelDesenho.setFormaTemp(forma);
 
         painelDesenho.repaint();
 
@@ -428,15 +452,25 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_painelAvatarMouseExited
 
+    private void btnUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUndoActionPerformed
+        painelDesenho.desfazer();
+    }//GEN-LAST:event_btnUndoActionPerformed
+
+    private void btnRedoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedoActionPerformed
+        painelDesenho.refazer();
+    }//GEN-LAST:event_btnRedoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfigs;
     private javax.swing.JToggleButton btnElipse;
     private javax.swing.JToggleButton btnLinha;
     private javax.swing.JToggleButton btnPoligono;
+    private javax.swing.JButton btnRedo;
     private javax.swing.JButton btnRefresh;
     private javax.swing.JToggleButton btnRetangulo;
     private javax.swing.JToggleButton btnTriangulo;
+    private javax.swing.JButton btnUndo;
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JLabel labelContorno;
     private javax.swing.JSpinner ladosSpinner;

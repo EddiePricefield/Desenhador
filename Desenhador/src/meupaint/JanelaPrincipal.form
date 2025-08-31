@@ -78,12 +78,12 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="986" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="408" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="508" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -114,6 +114,10 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="ladosSpinner" min="-2" pref="44" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
+                  <Component id="btnUndo" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnRedo" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="painelContorno" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="painelPreenchimento" min="-2" max="-2" attributes="0"/>
@@ -140,6 +144,8 @@
                       <Component id="btnTriangulo" alignment="2" min="-2" max="-2" attributes="0"/>
                       <Component id="btnPoligono" alignment="2" min="-2" max="-2" attributes="0"/>
                       <Component id="ladosSpinner" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnUndo" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnRedo" alignment="2" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -304,6 +310,24 @@
             <Property name="text" type="java.lang.String" value="1"/>
           </Properties>
         </Component>
+        <Component class="javax.swing.JButton" name="btnUndo">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x21a9;"/>
+            <Property name="toolTipText" type="java.lang.String" value="Desfazer"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUndoActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnRedo">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x21aa;"/>
+            <Property name="toolTipText" type="java.lang.String" value="Refazer"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRedoActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="painelOpcoes">
@@ -314,9 +338,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="painelAvatar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnConfigs" min="-2" pref="110" max="-2" attributes="0"/>
-                      <Component id="btnRefresh" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="btnRefresh" max="32767" attributes="0"/>
+                      <Component id="btnConfigs" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
