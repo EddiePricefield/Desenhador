@@ -394,7 +394,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         painelDesenho.limparListas();
-        painelDesenho.repaint();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnElipseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElipseActionPerformed
