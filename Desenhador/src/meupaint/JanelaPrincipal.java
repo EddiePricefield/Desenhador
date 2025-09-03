@@ -35,6 +35,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         buttonGroup = new javax.swing.ButtonGroup();
         painelDesenho = new meupaint.PainelDesenho();
+        labelLog = new java.awt.Label();
         panelFormas = new javax.swing.JPanel();
         btnLinha = new javax.swing.JToggleButton();
         btnRetangulo = new javax.swing.JToggleButton();
@@ -72,15 +73,26 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        labelLog.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
+        labelLog.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        labelLog.setForeground(new java.awt.Color(255, 51, 51));
+        labelLog.setText("Log: ");
+
         javax.swing.GroupLayout painelDesenhoLayout = new javax.swing.GroupLayout(painelDesenho);
         painelDesenho.setLayout(painelDesenhoLayout);
         painelDesenhoLayout.setHorizontalGroup(
             painelDesenhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 986, Short.MAX_VALUE)
+            .addGroup(painelDesenhoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelLog, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelDesenhoLayout.setVerticalGroup(
             painelDesenhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 508, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDesenhoLayout.createSequentialGroup()
+                .addContainerGap(478, Short.MAX_VALUE)
+                .addComponent(labelLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         panelFormas.setBorder(javax.swing.BorderFactory.createTitledBorder("Formas"));
@@ -213,7 +225,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 .addComponent(btnPoligono)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ladosSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                 .addComponent(btnUndo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRedo)
@@ -368,6 +380,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         forma.setY2(evt.getY());
         painelDesenho.addFormaTemp(forma);
         painelDesenho.setFormaTemp(null);
+        labelLog.setForeground(Color.GREEN);
+        labelLog.setText("Desenhou: " + painelDesenho.getLastForma().getClass().getSimpleName());
 
         painelDesenho.repaint();
 
@@ -394,6 +408,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         painelDesenho.limparListas();
+        labelLog.setForeground(Color.red);
+        labelLog.setText("Limpou o Quadro de Desenho");
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnElipseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElipseActionPerformed
@@ -453,10 +469,28 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     private void btnUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUndoActionPerformed
         painelDesenho.desfazer();
+        
+        if(painelDesenho.retornarEstado() == 1){
+            labelLog.setForeground(Color.ORANGE);
+            labelLog.setText("Desfez o Quadro de Desenho");
+        }else if(painelDesenho.retornarEstado() == 2){
+            labelLog.setForeground(Color.ORANGE);
+            labelLog.setText("Desfez: " + painelDesenho.getFormaDesfeita().getClass().getSimpleName());
+        }
+        
     }//GEN-LAST:event_btnUndoActionPerformed
 
     private void btnRedoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedoActionPerformed
         painelDesenho.refazer();
+        
+        if(painelDesenho.retornarEstado() == 3){
+            labelLog.setForeground(Color.BLUE);
+            labelLog.setText("Refez o Quadro de Desenho");
+        }else if(painelDesenho.retornarEstado() == 4){
+            labelLog.setForeground(Color.BLUE);
+            labelLog.setText("Refez: " + painelDesenho.getFormaRefeita().getClass().getSimpleName());
+        }
+          
     }//GEN-LAST:event_btnRedoActionPerformed
 
 
@@ -472,6 +506,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnUndo;
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JLabel labelContorno;
+    private java.awt.Label labelLog;
     private javax.swing.JSpinner ladosSpinner;
     private meupaint.PainelAvatar painelAvatar;
     private javax.swing.JPanel painelContorno;

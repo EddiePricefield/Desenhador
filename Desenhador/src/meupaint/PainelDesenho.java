@@ -4,7 +4,6 @@
  */
 package meupaint;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +25,8 @@ public class PainelDesenho extends JPanel {
     private Stack<List<Forma>> undoTudo;
     private Stack<List<Forma>> redoTudo;
     private Stack<Integer> qtdFormas;
+    
+    private int estadoStack;
 
     public PainelDesenho() {
         formas = new ArrayList<>();
@@ -66,24 +67,34 @@ public class PainelDesenho extends JPanel {
     }
 
     public void limparListas() { //Limpar todas as formas da tela, ou seja, limpar o array
-        undoTudo.push(new ArrayList<>(formas));
-        qtdFormas.push(formas.size());
-        formas.clear();
-        redoTudo.clear();
-        repaint();
+        
+        if (!formas.isEmpty()){
+            undoTudo.push(new ArrayList<>(formas));
+            qtdFormas.push(formas.size());
+            formas.clear();
+            redoTudo.clear();
+            redoForma.clear();
+            repaint();
+        }
+        
     }
+    
+    //O Push envia o que você quer para o topo do Stack
+    //O Pop remove o valor do topo do Stack
     
     public void desfazer() {
         
         if (formas.isEmpty() && !undoTudo.isEmpty()){
             redoTudo.push(new ArrayList<>(formas));
             formas = new ArrayList<>(undoTudo.pop());
+            estadoStack = 1;
             repaint();
             
         } else if (!undoForma.isEmpty()) {
             Forma a = undoForma.pop();
+            redoForma.push(a);
             formas.remove(a);
-            redoForma.push(a); 
+            estadoStack = 2;
             repaint();
         }
     }
@@ -94,13 +105,34 @@ public class PainelDesenho extends JPanel {
             undoTudo.push(new ArrayList<>(formas));
             formas = new ArrayList<>(redoTudo.pop());
             qtdFormas.pop();
+            estadoStack = 3;
             repaint();
+            
         }else if (!redoForma.isEmpty()) {
             Forma a = redoForma.pop();
+            undoForma.push(a);
             formas.add(a);
-            undoForma.push(a);  
+            estadoStack = 4;
             repaint();
         }
     }
 
+    public Forma getLastForma() {
+        return formas.get(formas.size() - 1);
+    }
+    
+    public Forma getFormaRefeita() {
+        return undoForma.peek();
+    }
+    
+    public Forma getFormaDesfeita() {
+        return redoForma.peek();
+    }
+    
+    public int retornarEstado(){
+        
+        return estadoStack;
+        
+    }
+    
 }
