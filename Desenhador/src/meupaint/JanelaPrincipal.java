@@ -22,6 +22,11 @@ import javax.swing.KeyStroke;
 public class JanelaPrincipal extends javax.swing.JFrame {
 
     private Forma forma;
+    
+    JanelaPilhas janelaPilhas = new JanelaPilhas(this);
+    
+    Color VERDE = new Color(20, 115, 49);
+    Color ORANGE = new Color(205, 177, 0);
 
     /**
      * Creates new form JanelaPrincipal
@@ -84,7 +89,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         labelLog.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
         labelLog.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         labelLog.setForeground(new java.awt.Color(255, 51, 51));
-        labelLog.setText("Log: ");
+        labelLog.setText("Log de Formas:");
+        labelLog.setVisible(false);
 
         javax.swing.GroupLayout painelDesenhoLayout = new javax.swing.GroupLayout(painelDesenho);
         painelDesenho.setLayout(painelDesenhoLayout);
@@ -98,7 +104,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         painelDesenhoLayout.setVerticalGroup(
             painelDesenhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDesenhoLayout.createSequentialGroup()
-                .addContainerGap(478, Short.MAX_VALUE)
+                .addContainerGap(508, Short.MAX_VALUE)
                 .addComponent(labelLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -277,7 +283,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnConfigs.setText("Configurações");
+        btnConfigs.setText("Depuração");
         btnConfigs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnConfigs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -360,6 +366,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void painelDesenhoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelDesenhoMousePressed
 
         if (btnLinha.isSelected()) {
@@ -383,12 +390,12 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_painelDesenhoMousePressed
 
     private void painelDesenhoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelDesenhoMouseReleased
-
+        
         forma.setX2(evt.getX());
         forma.setY2(evt.getY());
         painelDesenho.addFormaTemp(forma);
         painelDesenho.setFormaTemp(null);
-        labelLog.setForeground(Color.GREEN);
+        labelLog.setForeground(VERDE);
         labelLog.setText("Desenhou: " + painelDesenho.getLastForma().getClass().getSimpleName());
 
         painelDesenho.repaint();
@@ -458,7 +465,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_sliderContornoStateChanged
 
     private void btnConfigsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfigsActionPerformed
-        // TODO add your handling code here:
+
+        janelaPilhas.setVisible(true);
+        
     }//GEN-LAST:event_btnConfigsActionPerformed
 
     private void painelAvatarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelAvatarMouseEntered
@@ -479,10 +488,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         painelDesenho.desfazer();
         
         if(painelDesenho.retornarEstado() == 1){
-            labelLog.setForeground(Color.ORANGE);
+            labelLog.setForeground(ORANGE);
             labelLog.setText("Desfez o Limpar Quadro");
         }else if(painelDesenho.retornarEstado() == 2){
-            labelLog.setForeground(Color.ORANGE);
+            labelLog.setForeground(ORANGE);
             labelLog.setText("Desfez: " + painelDesenho.getFormaDesfeita().getClass().getSimpleName());
         }
         
@@ -501,6 +510,19 @@ public class JanelaPrincipal extends javax.swing.JFrame {
           
     }//GEN-LAST:event_btnRedoActionPerformed
 
+    public void visibilidadeLog(boolean valor){
+        labelLog.setVisible(valor);
+        labelLog.revalidate();
+    }
+    
+    public void ativarLimparAlternativo(boolean valor){
+        if(valor){
+            painelDesenho.setLimparAlternativo(true);
+        }else{
+            painelDesenho.setLimparAlternativo(false);
+        }
+    }
+    
     private void registrarKeyBidings(){
         InputMap im = painelDesenho.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         ActionMap am = painelDesenho.getActionMap();
@@ -512,12 +534,12 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e){
                 painelDesenho.desfazer();
-
+               
                 if (painelDesenho.retornarEstado() == 1) {
-                    labelLog.setForeground(Color.ORANGE);
+                    labelLog.setForeground(ORANGE);
                     labelLog.setText("Desfez o Limpar Quadro");
                 } else if (painelDesenho.retornarEstado() == 2) {
-                    labelLog.setForeground(Color.ORANGE);
+                    labelLog.setForeground(ORANGE);
                     labelLog.setText("Desfez: " + painelDesenho.getFormaDesfeita().getClass().getSimpleName());
                 }
             }

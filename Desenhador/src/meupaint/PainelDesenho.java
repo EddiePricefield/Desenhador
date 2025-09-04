@@ -26,6 +26,7 @@ public class PainelDesenho extends JPanel {
     private Stack<Stack<Forma>> redoTudo;
     
     private int estadoStack;
+    private boolean limparAlternativo;
 
     public PainelDesenho() {
         formas = new ArrayList<>();
@@ -62,16 +63,36 @@ public class PainelDesenho extends JPanel {
         formas.add(forma);
         undoForma.push(forma);
         redoForma.clear();
-        redoTudo.clear();
+        
+        if(limparAlternativo){
+            redoTudo.clear();
+        }
     }
 
     public void limparListas() { //Limpar todas as formas da tela, ou seja, limpar o array
         
-        if (!formas.isEmpty()){
+        if (limparAlternativo && !formas.isEmpty()){
             undoTudo.push(new ArrayList<>(formas));
             formas.clear();
             redoTudo.clear();
             redoForma.clear();
+            repaint();
+        }else{
+            if(!formas.isEmpty()){
+                formas.clear();
+            }
+            if(!undoForma.isEmpty()){
+                undoForma.clear();
+            }
+            if(!redoForma.isEmpty()){
+                redoForma.clear();
+            }
+            if(!undoTudo.isEmpty()){
+                undoTudo.clear();
+            }
+            if(!redoTudo.isEmpty()){
+                redoTudo.clear();
+            }
             repaint();
         }
         
@@ -82,7 +103,7 @@ public class PainelDesenho extends JPanel {
     
     public void desfazer() {
         
-        if (formas.isEmpty() && !undoTudo.isEmpty()){
+        if (limparAlternativo && formas.isEmpty() && !undoTudo.isEmpty()){
             redoTudo.push((Stack<Forma>) redoForma.clone());
             redoForma.clear();
             formas = new ArrayList<>(undoTudo.pop());
@@ -95,12 +116,14 @@ public class PainelDesenho extends JPanel {
             formas.remove(a);
             estadoStack = 2;
             repaint();
+        }else{
+            estadoStack = 0;
         }
     }
 
     public void refazer() {
         
-        if (redoForma.isEmpty() && !redoTudo.isEmpty()){
+        if (limparAlternativo && redoForma.isEmpty() && !redoTudo.isEmpty()){
             undoTudo.push(new ArrayList<>(formas));
             formas.clear();
             redoForma = (redoTudo.pop());
@@ -113,6 +136,8 @@ public class PainelDesenho extends JPanel {
             formas.add(a);
             estadoStack = 4;
             repaint();
+        }else{
+            estadoStack = 0;
         }
     }
 
@@ -129,9 +154,11 @@ public class PainelDesenho extends JPanel {
     }
     
     public int retornarEstado(){
-        
         return estadoStack;
-        
+    }
+    
+    public void setLimparAlternativo(boolean limparAlternativo){
+        this.limparAlternativo = limparAlternativo;
     }
     
 }
