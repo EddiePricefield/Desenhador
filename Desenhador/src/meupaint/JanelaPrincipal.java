@@ -5,8 +5,15 @@
 package meupaint;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
 import javax.swing.JColorChooser;
+import javax.swing.JComponent;
 import javax.swing.JSpinner.DefaultEditor;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -22,6 +29,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     public JanelaPrincipal() {
         initComponents();
         ((DefaultEditor) ladosSpinner.getEditor()).getTextField().setEditable(false);
+        registrarKeyBidings();
     }
 
     /**
@@ -84,7 +92,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             painelDesenhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelDesenhoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelLog, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelLog, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelDesenhoLayout.setVerticalGroup(
@@ -472,7 +480,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         
         if(painelDesenho.retornarEstado() == 1){
             labelLog.setForeground(Color.ORANGE);
-            labelLog.setText("Desfez o Quadro de Desenho");
+            labelLog.setText("Desfez o Limpar Quadro");
         }else if(painelDesenho.retornarEstado() == 2){
             labelLog.setForeground(Color.ORANGE);
             labelLog.setText("Desfez: " + painelDesenho.getFormaDesfeita().getClass().getSimpleName());
@@ -485,7 +493,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         
         if(painelDesenho.retornarEstado() == 3){
             labelLog.setForeground(Color.BLUE);
-            labelLog.setText("Refez o Quadro de Desenho");
+            labelLog.setText("Refez o Limpar Quadro");
         }else if(painelDesenho.retornarEstado() == 4){
             labelLog.setForeground(Color.BLUE);
             labelLog.setText("Refez: " + painelDesenho.getFormaRefeita().getClass().getSimpleName());
@@ -493,6 +501,44 @@ public class JanelaPrincipal extends javax.swing.JFrame {
           
     }//GEN-LAST:event_btnRedoActionPerformed
 
+    private void registrarKeyBidings(){
+        InputMap im = painelDesenho.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap am = painelDesenho.getActionMap();
+        
+        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK), "desfazer");
+        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_Y, KeyEvent.CTRL_DOWN_MASK), "refazer");
+        
+        am.put("desfazer", new AbstractAction(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                painelDesenho.desfazer();
+
+                if (painelDesenho.retornarEstado() == 1) {
+                    labelLog.setForeground(Color.ORANGE);
+                    labelLog.setText("Desfez o Limpar Quadro");
+                } else if (painelDesenho.retornarEstado() == 2) {
+                    labelLog.setForeground(Color.ORANGE);
+                    labelLog.setText("Desfez: " + painelDesenho.getFormaDesfeita().getClass().getSimpleName());
+                }
+            }
+        });
+        
+        am.put("refazer", new AbstractAction(){
+           @Override
+           public void actionPerformed(ActionEvent e){
+               painelDesenho.refazer();
+
+               if (painelDesenho.retornarEstado() == 3) {
+                   labelLog.setForeground(Color.BLUE);
+                   labelLog.setText("Refez o Limpar Quadro");
+               } else if (painelDesenho.retornarEstado() == 4) {
+                   labelLog.setForeground(Color.BLUE);
+                   labelLog.setText("Refez: " + painelDesenho.getFormaRefeita().getClass().getSimpleName());
+               }
+           }
+        });
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfigs;

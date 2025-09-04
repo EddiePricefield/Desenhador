@@ -23,8 +23,7 @@ public class PainelDesenho extends JPanel {
     private Stack<Forma> undoForma;
     private Stack<Forma> redoForma;
     private Stack<List<Forma>> undoTudo;
-    private Stack<List<Forma>> redoTudo;
-    private Stack<Integer> qtdFormas;
+    private Stack<Stack<Forma>> redoTudo;
     
     private int estadoStack;
 
@@ -34,7 +33,6 @@ public class PainelDesenho extends JPanel {
         redoForma = new Stack<>();
         undoTudo = new Stack<>();
         redoTudo = new Stack<>();
-        qtdFormas = new Stack<>();
     }
     
     interface Comando {
@@ -64,13 +62,13 @@ public class PainelDesenho extends JPanel {
         formas.add(forma);
         undoForma.push(forma);
         redoForma.clear();
+        redoTudo.clear();
     }
 
     public void limparListas() { //Limpar todas as formas da tela, ou seja, limpar o array
         
         if (!formas.isEmpty()){
             undoTudo.push(new ArrayList<>(formas));
-            qtdFormas.push(formas.size());
             formas.clear();
             redoTudo.clear();
             redoForma.clear();
@@ -85,7 +83,8 @@ public class PainelDesenho extends JPanel {
     public void desfazer() {
         
         if (formas.isEmpty() && !undoTudo.isEmpty()){
-            redoTudo.push(new ArrayList<>(formas));
+            redoTudo.push((Stack<Forma>) redoForma.clone());
+            redoForma.clear();
             formas = new ArrayList<>(undoTudo.pop());
             estadoStack = 1;
             repaint();
@@ -101,10 +100,10 @@ public class PainelDesenho extends JPanel {
 
     public void refazer() {
         
-        if (!qtdFormas.isEmpty() && formas.size() == qtdFormas.peek() && !redoTudo.isEmpty()){
+        if (redoForma.isEmpty() && !redoTudo.isEmpty()){
             undoTudo.push(new ArrayList<>(formas));
-            formas = new ArrayList<>(redoTudo.pop());
-            qtdFormas.pop();
+            formas.clear();
+            redoForma = (redoTudo.pop());
             estadoStack = 3;
             repaint();
             
