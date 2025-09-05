@@ -140,11 +140,11 @@ public class PainelDesenho extends JPanel {
         return formas.get(formas.size() - 1);
     }
     
-    public Forma getFormaRefeita() {
+    public Forma undoFormaPeek() {
         return undoForma.peek();
     }
     
-    public Forma getFormaDesfeita() {
+    public Forma redoFormaPeek() {
         return redoForma.peek();
     }
     
@@ -158,12 +158,17 @@ public class PainelDesenho extends JPanel {
             case 2 -> redoForma.size();
             case 3 -> undoTudo.size();
             case 4 -> redoTudo.size();
+            case 5 -> formas.size(); //Shhhhhhh
             default -> 0;
         }; 
     }
     
     public void setLimparAlternativo(boolean limparAlternativo){
         this.limparAlternativo = limparAlternativo;
+    }
+    
+    public boolean getLimparAlternativo(){
+        return limparAlternativo;
     }
     
 }

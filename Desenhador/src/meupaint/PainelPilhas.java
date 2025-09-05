@@ -17,15 +17,15 @@ import javax.swing.JPanel;
 public class PainelPilhas extends JPanel {
     
     private JanelaPrincipal janelaPrincipal;
-    private int formaDesfazer;
-    private int formaRefazer;
+    private String formaDesfazer;
+    private String formaRefazer;
     
     Color ORANGE = new Color(201, 94, 8);
 
     public PainelPilhas(JanelaPrincipal janelaPrincipal) {
         this.janelaPrincipal = janelaPrincipal;
-        formaRefazer = 7;
-        formaDesfazer = 7;
+        formaRefazer = "";
+        formaDesfazer = "";
     }
     
     @Override
@@ -40,36 +40,36 @@ public class PainelPilhas extends JPanel {
         //Desenho das Formas dentro do Retângulo PRECISO DAR REPAINT() NA JANELA DE PILHAS QUANDO EU CHAMAR O NEGOCIO
         g2.setStroke(new BasicStroke(3));
         switch(formaDesfazer){
-            case 1: //LINHA
+            case "Linha":
                 g2.setColor(ORANGE);
                 g2.drawLine(75, 50, 115, 90);
                 break;
-            case 2: //RETANGULO
+            case "Retangulo":
                 g2.setColor(ORANGE);
                 g2.drawRect(65, 45, 65, 50);
                 break;
-            case 3: //ELIPSE
+            case "Elipse":
                 g2.setColor(ORANGE);
                 g2.drawOval(65, 40, 60, 60);
                 break;
-            case 4: //TRIANGULO
+            case "Triangulo":
                 g2.setColor(ORANGE);
                 int[] xPoints = {95, 70, 120};
                 int[] yPoints = {45, 95, 95};
                 g2.drawPolygon(xPoints, yPoints, 3);
                 break;
-            case 5: //POLIGONO
+            case "Poligono":
                 g2.setColor(ORANGE);
                 int[] xPointsPoly = {95, 123, 112, 78, 67};
                 int[] yPointsPoly = {42, 63, 97, 97, 63};
                 g2.drawPolygon(xPointsPoly, yPointsPoly, 5);
                 break;
-            case 6: //LIMPAR TUDO
+            case "LimparTudo":
                 g2.setColor(ORANGE);
                 g2.drawLine(70, 45, 120, 95);
                 g2.drawLine(70, 95, 120, 45);
                 break;
-            case 7: //REDESENHAR TUDO
+            case "RedesenharTudo":
                 g2.setColor(ORANGE);
                 g2.drawRect(70, 45, 20, 20);
                 g2.drawOval(100, 45, 20, 20);
@@ -77,46 +77,50 @@ public class PainelPilhas extends JPanel {
                 int[] yTri1 = {75, 95, 95};
                 g2.drawPolygon(xTri1, yTri1, 3);
                 break;
+            case "":
+                break;
                 
         }
         
         switch (formaRefazer) {
-            case 1: //LINHA
+            case "Linha":
                 g2.setColor(Color.BLUE);
                 g2.drawLine(285, 50, 325, 90);
                 break;
-            case 2: //RETANGULO
+            case "Retangulo":
                 g2.setColor(Color.BLUE);
                 g2.drawRect(275, 45, 65, 50);
                 break;
-            case 3: //ELIPSE
+            case "Elipse":
                 g2.setColor(Color.BLUE);
                 g2.drawOval(275, 40, 60, 60);
                 break;
-            case 4: //TRIANGULO
+            case "Triangulo":
                 g2.setColor(Color.BLUE);
                 int[] xPoints = {305, 280, 330};
                 int[] yPoints = {45, 95, 95};
                 g2.drawPolygon(xPoints, yPoints, 3);
                 break;
-            case 5: //POLIGONO
+            case "Poligono":
                 g2.setColor(Color.BLUE);
                 int[] xPointsPoly = {305, 333, 322, 288, 277};
                 int[] yPointsPoly = {42, 63, 97, 97, 63};
                 g2.drawPolygon(xPointsPoly, yPointsPoly, 5);
                 break;
-            case 6: //LIMPAR TUDO
+            case "LimparTudo":
                 g2.setColor(Color.BLUE);
                 g2.drawLine(280, 45, 330, 95);
                 g2.drawLine(280, 95, 330, 45);
                 break;
-            case 7: //REDESENHAR TUDO
+            case "RedesenharTudo":
                 g2.setColor(Color.BLUE);
                 g2.drawRect(280, 45, 20, 20);
                 g2.drawOval(310, 45, 20, 20);
                 int[] xTri2 = {305, 295, 315};
                 int[] yTri2 = {75, 95, 95};
                 g2.drawPolygon(xTri2, yTri2, 3);
+                break;
+            case "":
                 break;
         }
         
@@ -156,11 +160,11 @@ public class PainelPilhas extends JPanel {
 
     }
 
-    public void setFormaDesfazer(int formaDesfazer) {
+    public void setFormaDesfazer(String formaDesfazer) {
         this.formaDesfazer = formaDesfazer;
     }
 
-    public void setFormaRefazer(int formaRefazer) {
+    public void setFormaRefazer(String formaRefazer) {
         this.formaRefazer = formaRefazer;
     }
     

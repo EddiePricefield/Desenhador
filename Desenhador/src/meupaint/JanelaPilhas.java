@@ -168,24 +168,23 @@ public class JanelaPilhas extends javax.swing.JFrame {
     
     private void checkLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkLogActionPerformed
 
-        if(checkLog.isSelected()){
-            janelaPrincipal.visibilidadeLog(true);
-        }else{
-            janelaPrincipal.visibilidadeLog(false);
-        }
+        janelaPrincipal.visibilidadeLog(checkLog.isSelected());
         
     }//GEN-LAST:event_checkLogActionPerformed
 
     private void checkLimparQuadroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkLimparQuadroActionPerformed
 
-    if(checkLimparQuadro.isSelected()){
-        janelaPrincipal.ativarLimparAlternativo(true);
-    }else{
-        janelaPrincipal.ativarLimparAlternativo(false);
-    }
-// TODO add your handling code here:
+        janelaPrincipal.ativarLimparAlternativo(checkLimparQuadro.isSelected());
+
     }//GEN-LAST:event_checkLimparQuadroActionPerformed
 
+    public void setFormaRefazer(String formaRefazer) {
+        painelPilhas.setFormaRefazer(formaRefazer);
+    }
+    
+    public void setFormaDesfazer(String formaDesfazer) {
+        painelPilhas.setFormaDesfazer(formaDesfazer);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PainelFuncionalidades;

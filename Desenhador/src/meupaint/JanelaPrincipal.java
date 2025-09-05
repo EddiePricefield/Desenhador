@@ -397,6 +397,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         painelDesenho.setFormaTemp(null);
         labelLog.setForeground(VERDE);
         labelLog.setText("Desenhou: " + painelDesenho.getLastForma().getClass().getSimpleName());
+        
+        janelaPilhas.setFormaDesfazer(painelDesenho.getLastForma().getClass().getSimpleName());
 
         painelDesenho.repaint();
         atualizarPilhas();
@@ -426,6 +428,15 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         painelDesenho.limparListas();
         labelLog.setForeground(Color.red);
         labelLog.setText("Limpou o Quadro de Desenho");
+        
+        if(painelDesenho.getStackTamanho(1) == 0 && painelDesenho.getStackTamanho(2) == 0){
+            janelaPilhas.setFormaDesfazer("");
+        }else if(painelDesenho.getStackTamanho(3) != 0){
+            janelaPilhas.setFormaDesfazer("RedesenharTudo");
+        }
+        
+        janelaPilhas.setFormaRefazer("");
+   
         atualizarPilhas();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
@@ -494,9 +505,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             labelLog.setText("Desfez o Limpar Quadro");
         }else if(painelDesenho.retornarEstado() == 2){
             labelLog.setForeground(ORANGE);
-            labelLog.setText("Desfez: " + painelDesenho.getFormaDesfeita().getClass().getSimpleName());
+            labelLog.setText("Desfez: " + painelDesenho.redoFormaPeek().getClass().getSimpleName());  
         }
-        
+        atualizarDesenhosPilhas();
         atualizarPilhas();
         
     }//GEN-LAST:event_btnUndoActionPerformed
@@ -509,9 +520,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             labelLog.setText("Refez o Limpar Quadro");
         }else if(painelDesenho.retornarEstado() == 4){
             labelLog.setForeground(Color.BLUE);
-            labelLog.setText("Refez: " + painelDesenho.getFormaRefeita().getClass().getSimpleName());
+            labelLog.setText("Refez: " + painelDesenho.undoFormaPeek().getClass().getSimpleName());
         }
-        
+        atualizarDesenhosPilhas();
         atualizarPilhas();
           
     }//GEN-LAST:event_btnRedoActionPerformed
@@ -539,6 +550,22 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         }
     }
     
+    private void atualizarDesenhosPilhas(){
+        
+        if (painelDesenho.getStackTamanho(1) != 0) {
+            janelaPilhas.setFormaDesfazer(painelDesenho.undoFormaPeek().getClass().getSimpleName());
+        } else{
+            janelaPilhas.setFormaDesfazer("");
+        }
+        
+        if (painelDesenho.getStackTamanho(2) != 0) {
+            janelaPilhas.setFormaRefazer(painelDesenho.redoFormaPeek().getClass().getSimpleName());
+        } else{
+            janelaPilhas.setFormaDesfazer("");
+        }        
+        
+    }
+    
     private void registrarKeyBidings(){
         InputMap im = painelDesenho.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         ActionMap am = painelDesenho.getActionMap();
@@ -556,8 +583,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                     labelLog.setText("Desfez o Limpar Quadro");
                 } else if (painelDesenho.retornarEstado() == 2) {
                     labelLog.setForeground(ORANGE);
-                    labelLog.setText("Desfez: " + painelDesenho.getFormaDesfeita().getClass().getSimpleName());
+                    labelLog.setText("Desfez: " + painelDesenho.redoFormaPeek().getClass().getSimpleName());
                 }
+                atualizarDesenhosPilhas();
+                atualizarPilhas();
             }
         });
         
@@ -571,8 +600,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                    labelLog.setText("Refez o Limpar Quadro");
                } else if (painelDesenho.retornarEstado() == 4) {
                    labelLog.setForeground(Color.BLUE);
-                   labelLog.setText("Refez: " + painelDesenho.getFormaRefeita().getClass().getSimpleName());
+                   labelLog.setText("Refez: " + painelDesenho.undoFormaPeek().getClass().getSimpleName());
                }
+               atualizarDesenhosPilhas();
+               atualizarPilhas();
            }
         });
         
