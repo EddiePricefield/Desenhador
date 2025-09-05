@@ -74,21 +74,7 @@ public class PainelDesenho extends JPanel {
             undoForma.clear();
             repaint();
         }else{
-            if(!formas.isEmpty()){
-                formas.clear();
-            }
-            if(!undoForma.isEmpty()){
-                undoForma.clear();
-            }
-            if(!redoForma.isEmpty()){
-                redoForma.clear();
-            }
-            if(!undoTudo.isEmpty()){
-                undoTudo.clear();
-            }
-            if(!redoTudo.isEmpty()){
-                redoTudo.clear();
-            }
+            limparStacks();
             repaint();
         }
         
@@ -164,6 +150,24 @@ public class PainelDesenho extends JPanel {
             case 5 -> formas.size(); //Shhhhhhh
             default -> 0;
         }; 
+    }
+    
+    public void limparStacks(){
+        if(!formas.isEmpty()){
+                formas.clear();
+            }
+            if(!undoForma.isEmpty()){
+                undoForma.clear();
+            }
+            if(!redoForma.isEmpty()){
+                redoForma.clear();
+            }
+            if(!undoTudo.isEmpty()){
+                undoTudo.clear();
+            }
+            if(!redoTudo.isEmpty()){
+                redoTudo.clear();
+            }
     }
     
     public void setLimparAlternativo(boolean limparAlternativo){

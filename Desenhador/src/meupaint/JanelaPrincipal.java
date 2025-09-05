@@ -571,6 +571,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         
     }
     
+    public void limparStacks(){
+        painelDesenho.limparStacks();
+    }
+    
     private void registrarKeyBidings(){
         InputMap im = painelDesenho.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         ActionMap am = painelDesenho.getActionMap();
