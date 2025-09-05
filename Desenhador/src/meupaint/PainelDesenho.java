@@ -35,11 +35,6 @@ public class PainelDesenho extends JPanel {
         undoTudo = new Stack<>();
         redoTudo = new Stack<>();
     }
-    
-    interface Comando {
-        void undo();
-        void redo();
-    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -155,6 +150,16 @@ public class PainelDesenho extends JPanel {
     
     public int retornarEstado(){
         return estadoStack;
+    }
+    
+    public int getStackTamanho(int stackNum) {
+        return switch (stackNum) {
+            case 1 -> undoForma.size();
+            case 2 -> redoForma.size();
+            case 3 -> undoTudo.size();
+            case 4 -> redoTudo.size();
+            default -> 0;
+        }; 
     }
     
     public void setLimparAlternativo(boolean limparAlternativo){

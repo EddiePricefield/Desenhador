@@ -26,7 +26,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     JanelaPilhas janelaPilhas = new JanelaPilhas(this);
     
     Color VERDE = new Color(20, 115, 49);
-    Color ORANGE = new Color(205, 177, 0);
+    Color ORANGE = new Color(201, 94, 8);
 
     /**
      * Creates new form JanelaPrincipal
@@ -238,8 +238,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 .addGap(5, 5, 5)
                 .addComponent(btnPoligono)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ladosSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                .addComponent(ladosSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
                 .addComponent(btnUndo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRedo)
@@ -399,6 +399,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         labelLog.setText("Desenhou: " + painelDesenho.getLastForma().getClass().getSimpleName());
 
         painelDesenho.repaint();
+        atualizarPilhas();
 
     }//GEN-LAST:event_painelDesenhoMouseReleased
 
@@ -425,6 +426,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         painelDesenho.limparListas();
         labelLog.setForeground(Color.red);
         labelLog.setText("Limpou o Quadro de Desenho");
+        atualizarPilhas();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnElipseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElipseActionPerformed
@@ -495,6 +497,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             labelLog.setText("Desfez: " + painelDesenho.getFormaDesfeita().getClass().getSimpleName());
         }
         
+        atualizarPilhas();
+        
     }//GEN-LAST:event_btnUndoActionPerformed
 
     private void btnRedoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedoActionPerformed
@@ -507,6 +511,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             labelLog.setForeground(Color.BLUE);
             labelLog.setText("Refez: " + painelDesenho.getFormaRefeita().getClass().getSimpleName());
         }
+        
+        atualizarPilhas();
           
     }//GEN-LAST:event_btnRedoActionPerformed
 
@@ -520,6 +526,16 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             painelDesenho.setLimparAlternativo(true);
         }else{
             painelDesenho.setLimparAlternativo(false);
+        }
+    }
+    
+    public int tamanhoStacks(int stackNum){
+        return painelDesenho.getStackTamanho(stackNum);
+    }
+    
+    public void atualizarPilhas() {
+        if (janelaPilhas != null) {
+            janelaPilhas.repaint(); // redesenha a janela inteira
         }
     }
     

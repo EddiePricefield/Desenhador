@@ -18,7 +18,10 @@ public class JanelaPilhas extends javax.swing.JFrame {
      */
     public JanelaPilhas(JanelaPrincipal principal) {
         initComponents();
+        setResizable(false);
         this.janelaPrincipal = principal;
+        painelPilhas.setJanelaPrincipal(janelaPrincipal);
+        repaint();
     }
 
     /**
@@ -30,18 +33,22 @@ public class JanelaPilhas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        checkLog = new javax.swing.JCheckBox();
+        PainelFuncionalidades = new javax.swing.JPanel();
         checkLimparQuadro = new javax.swing.JCheckBox();
+        checkLog = new javax.swing.JCheckBox();
+        painelPilhas = new meupaint.PainelPilhas(janelaPrincipal);
+        labelDesfazer = new javax.swing.JLabel();
+        labelRefazer = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setTitle("Depuração das Pilhas");
+        setAlwaysOnTop(true);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        checkLog.setText("Exibir Log");
-        checkLog.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkLogActionPerformed(evt);
-            }
-        });
+        PainelFuncionalidades.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         checkLimparQuadro.setText("Ativar \"Limpar Quadro\" Alternativo");
         checkLimparQuadro.addActionListener(new java.awt.event.ActionListener() {
@@ -50,30 +57,115 @@ public class JanelaPilhas extends javax.swing.JFrame {
             }
         });
 
+        checkLog.setText("Exibir Log");
+        checkLog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkLogActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PainelFuncionalidadesLayout = new javax.swing.GroupLayout(PainelFuncionalidades);
+        PainelFuncionalidades.setLayout(PainelFuncionalidadesLayout);
+        PainelFuncionalidadesLayout.setHorizontalGroup(
+            PainelFuncionalidadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PainelFuncionalidadesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(checkLog)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                .addComponent(checkLimparQuadro)
+                .addContainerGap())
+        );
+        PainelFuncionalidadesLayout.setVerticalGroup(
+            PainelFuncionalidadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PainelFuncionalidadesLayout.createSequentialGroup()
+                .addGroup(PainelFuncionalidadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(checkLog)
+                    .addComponent(checkLimparQuadro))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        painelPilhas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        labelDesfazer.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        labelDesfazer.setText("Próximo Desfazer");
+
+        labelRefazer.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        labelRefazer.setText("Próximo Refazer");
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel1.setText("Pilha Desfazer");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setText("Pilha Refazer");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setText("Pilha DesfazerTudo");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setText("Pilha RefazerTudo");
+
+        javax.swing.GroupLayout painelPilhasLayout = new javax.swing.GroupLayout(painelPilhas);
+        painelPilhas.setLayout(painelPilhasLayout);
+        painelPilhasLayout.setHorizontalGroup(
+            painelPilhasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelPilhasLayout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addComponent(labelDesfazer)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                .addComponent(labelRefazer)
+                .addGap(45, 45, 45))
+            .addGroup(painelPilhasLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(painelPilhasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        painelPilhasLayout.setVerticalGroup(
+            painelPilhasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelPilhasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelPilhasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelDesfazer)
+                    .addComponent(labelRefazer))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addGap(13, 13, 13))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(checkLog)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
-                .addComponent(checkLimparQuadro)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(PainelFuncionalidades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(painelPilhas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(274, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(checkLog)
-                    .addComponent(checkLimparQuadro))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(painelPilhas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(PainelFuncionalidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void checkLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkLogActionPerformed
 
         if(checkLog.isSelected()){
@@ -96,7 +188,15 @@ public class JanelaPilhas extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel PainelFuncionalidades;
     private javax.swing.JCheckBox checkLimparQuadro;
     private javax.swing.JCheckBox checkLog;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel labelDesfazer;
+    private javax.swing.JLabel labelRefazer;
+    private meupaint.PainelPilhas painelPilhas;
     // End of variables declaration//GEN-END:variables
 }
