@@ -155,6 +155,7 @@ public class PainelDesenho extends JPanel {
     public void limparStacks(){
         if(!formas.isEmpty()){
                 formas.clear();
+                repaint();
             }
             if(!undoForma.isEmpty()){
                 undoForma.clear();

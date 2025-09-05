@@ -16,6 +16,7 @@ public class JanelaPilhas extends javax.swing.JFrame {
     /**
      * Creates new form JanelaPilhas
      */
+    
     public JanelaPilhas(JanelaPrincipal principal) {
         initComponents();
         setResizable(false);
