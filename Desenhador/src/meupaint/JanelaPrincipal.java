@@ -399,6 +399,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         labelLog.setText("Desenhou: " + painelDesenho.getLastForma().getClass().getSimpleName());
         
         janelaPilhas.setFormaDesfazer(painelDesenho.getLastForma().getClass().getSimpleName());
+        janelaPilhas.setFormaRefazer("");
 
         painelDesenho.repaint();
         atualizarPilhas();
@@ -429,9 +430,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         labelLog.setForeground(Color.red);
         labelLog.setText("Limpou o Quadro de Desenho");
         
-        if(painelDesenho.getStackTamanho(1) == 0 && painelDesenho.getStackTamanho(2) == 0){
+        if(painelDesenho.getStackTamanho(1) == 0 && painelDesenho.getStackTamanho(3) == 0){
             janelaPilhas.setFormaDesfazer("");
-        }else if(painelDesenho.getStackTamanho(3) != 0){
+        } else{
             janelaPilhas.setFormaDesfazer("RedesenharTudo");
         }
         
@@ -552,17 +553,21 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     
     private void atualizarDesenhosPilhas(){
         
-        if (painelDesenho.getStackTamanho(1) != 0) {
+        if (painelDesenho.getStackTamanho(1) > 0) {
             janelaPilhas.setFormaDesfazer(painelDesenho.undoFormaPeek().getClass().getSimpleName());
+        } else if(painelDesenho.getStackTamanho(3) > 0){
+            janelaPilhas.setFormaDesfazer("RedesenharTudo");
         } else{
             janelaPilhas.setFormaDesfazer("");
         }
         
-        if (painelDesenho.getStackTamanho(2) != 0) {
+        if (painelDesenho.getStackTamanho(2) > 0) {
             janelaPilhas.setFormaRefazer(painelDesenho.redoFormaPeek().getClass().getSimpleName());
+        } else if(painelDesenho.getStackTamanho(4) > 0){
+            janelaPilhas.setFormaRefazer("LimparTudo");
         } else{
-            janelaPilhas.setFormaDesfazer("");
-        }        
+            janelaPilhas.setFormaRefazer("");
+        }
         
     }
     
