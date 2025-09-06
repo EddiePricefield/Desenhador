@@ -9,14 +9,9 @@ package meupaint;
  * @author Eddie
  */
 public class JanelaPilhas extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JanelaPilhas.class.getName());
+
     private JanelaPrincipal janelaPrincipal;
-    
-    /**
-     * Creates new form JanelaPilhas
-     */
-    
+
     public JanelaPilhas(JanelaPrincipal principal) {
         initComponents();
         setResizable(false);
@@ -52,6 +47,7 @@ public class JanelaPilhas extends javax.swing.JFrame {
         PainelFuncionalidades.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         checkLimparQuadro.setText("Ativar \"Limpar Quadro\" Alternativo");
+        checkLimparQuadro.setToolTipText("Ativa o método de usar pilhas para o Limpar Quadro");
         checkLimparQuadro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkLimparQuadroActionPerformed(evt);
@@ -59,6 +55,7 @@ public class JanelaPilhas extends javax.swing.JFrame {
         });
 
         checkLog.setText("Exibir Log");
+        checkLog.setToolTipText("Ativa o histórico de formas no Painel de Desenho");
         checkLog.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkLogActionPerformed(evt);
@@ -166,11 +163,11 @@ public class JanelaPilhas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+
     private void checkLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkLogActionPerformed
 
         janelaPrincipal.visibilidadeLog(checkLog.isSelected());
-        
+
     }//GEN-LAST:event_checkLogActionPerformed
 
     private void checkLimparQuadroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkLimparQuadroActionPerformed
@@ -186,7 +183,7 @@ public class JanelaPilhas extends javax.swing.JFrame {
     public void setFormaRefazer(String formaRefazer) {
         painelPilhas.setFormaRefazer(formaRefazer);
     }
-    
+
     public void setFormaDesfazer(String formaDesfazer) {
         painelPilhas.setFormaDesfazer(formaDesfazer);
     }

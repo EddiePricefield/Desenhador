@@ -15,31 +15,31 @@ import javax.swing.JPanel;
  * @author Eddie
  */
 public class PainelPilhas extends JPanel {
-    
+
     private JanelaPrincipal janelaPrincipal;
     private String formaDesfazer;
     private String formaRefazer;
-    
+
     Color ORANGE = new Color(201, 94, 8);
-    
+
     public PainelPilhas(JanelaPrincipal janelaPrincipal) {
         this.janelaPrincipal = janelaPrincipal;
         formaRefazer = "";
         formaDesfazer = "";
     }
-    
+
     @Override
-    protected void paintComponent(Graphics g){
-        
+    protected void paintComponent(Graphics g) {
+
         Graphics2D g2 = (Graphics2D) g.create();
-        
+
         //Retângulo para inserir o undoForma() e o redoForma()
         g2.drawRect(40, 30, 110, 80);
         g2.drawRect(250, 30, 110, 80);
-        
+
         //Desenho das Formas dentro do Retângulo PRECISO DAR REPAINT() NA JANELA DE PILHAS QUANDO EU CHAMAR O NEGOCIO
         g2.setStroke(new BasicStroke(3));
-        switch(formaDesfazer){
+        switch (formaDesfazer) {
             case "Linha":
                 g2.setColor(ORANGE);
                 g2.drawLine(75, 50, 115, 90);
@@ -79,9 +79,9 @@ public class PainelPilhas extends JPanel {
                 break;
             case "":
                 break;
-                
+
         }
-        
+
         switch (formaRefazer) {
             case "Linha":
                 g2.setColor(Color.BLUE);
@@ -123,12 +123,12 @@ public class PainelPilhas extends JPanel {
             case "":
                 break;
         }
-        
+
         g2.setStroke(new BasicStroke(1));
         g2.setColor(Color.BLACK);
-        
+
         g2.drawLine(10, 180, 390, 180);
-        
+
         if (janelaPrincipal.tamanhoStacks(1) != 0) {
             desenharStack(g2, janelaPrincipal.tamanhoStacks(1), 100, 130, 5, 10, 3, ORANGE);
         }
@@ -141,15 +141,15 @@ public class PainelPilhas extends JPanel {
         if (janelaPrincipal.tamanhoStacks(4) != 0) {
             desenharStack(g2, janelaPrincipal.tamanhoStacks(4), 125, 221, 5, 10, 3, Color.BLUE);
         }
-        
+
     }
-    
-    private void desenharStack(Graphics2D g2, int tamanhoStack ,int xIni, int yIni, int largura, int altura, int espaco, Color cor) {
+
+    private void desenharStack(Graphics2D g2, int tamanhoStack, int xIni, int yIni, int largura, int altura, int espaco, Color cor) {
 
         for (int i = 0; i < tamanhoStack; i++) {
-            
+
             int x = xIni + i * (largura + espaco);
-            
+
             g2.setColor(cor);
             g2.fillRect(x, yIni, largura, altura);
 
@@ -167,13 +167,13 @@ public class PainelPilhas extends JPanel {
     public void setFormaRefazer(String formaRefazer) {
         this.formaRefazer = formaRefazer;
     }
-    
-    public void setJanelaPrincipal(JanelaPrincipal janelaPrincipal){
+
+    public void setJanelaPrincipal(JanelaPrincipal janelaPrincipal) {
         this.janelaPrincipal = janelaPrincipal;
     }
-    
+
     public PainelPilhas getPainelPilhas() {
         return this;
     }
-    
+
 }

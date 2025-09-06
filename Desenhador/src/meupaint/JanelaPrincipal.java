@@ -22,9 +22,9 @@ import javax.swing.KeyStroke;
 public class JanelaPrincipal extends javax.swing.JFrame {
 
     private Forma forma;
-    
+
     JanelaPilhas janelaPilhas = new JanelaPilhas(this);
-    
+
     Color VERDE = new Color(20, 115, 49);
     Color ORANGE = new Color(201, 94, 8);
 
@@ -366,7 +366,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    
+
     private void painelDesenhoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelDesenhoMousePressed
 
         if (btnLinha.isSelected()) {
@@ -378,7 +378,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         } else if (btnTriangulo.isSelected()) {
             forma = new Triangulo();
         } else if (btnPoligono.isSelected()) {
-            forma = new Poligono((int)(ladosSpinner.getValue()));
+            forma = new Poligono((int) (ladosSpinner.getValue()));
         }
 
         forma.setTamanhoContorno(sliderContorno.getValue());
@@ -390,14 +390,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_painelDesenhoMousePressed
 
     private void painelDesenhoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelDesenhoMouseReleased
-        
+
         forma.setX2(evt.getX());
         forma.setY2(evt.getY());
         painelDesenho.addFormaTemp(forma);
         painelDesenho.setFormaTemp(null);
         labelLog.setForeground(VERDE);
         labelLog.setText("Desenhou: " + painelDesenho.getLastForma().getClass().getSimpleName());
-        
+
         janelaPilhas.setFormaDesfazer(painelDesenho.getLastForma().getClass().getSimpleName());
         janelaPilhas.setFormaRefazer("");
 
@@ -410,7 +410,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         forma.setX2(evt.getX());
         forma.setY2(evt.getY());
-        
+
         painelDesenho.setFormaTemp(forma);
 
         painelDesenho.repaint();
@@ -429,15 +429,15 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         painelDesenho.limparListas();
         labelLog.setForeground(Color.red);
         labelLog.setText("Limpou o Quadro de Desenho");
-        
-        if(painelDesenho.getStackTamanho(1) == 0 && painelDesenho.getStackTamanho(3) == 0){
+
+        if (painelDesenho.getStackTamanho(1) == 0 && painelDesenho.getStackTamanho(3) == 0) {
             janelaPilhas.setFormaDesfazer("");
-        } else{
+        } else {
             janelaPilhas.setFormaDesfazer("RedesenharTudo");
         }
-        
+
         janelaPilhas.setFormaRefazer("");
-   
+
         atualizarPilhas();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
@@ -481,7 +481,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private void btnConfigsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfigsActionPerformed
 
         janelaPilhas.setVisible(true);
-        
+
     }//GEN-LAST:event_btnConfigsActionPerformed
 
     private void painelAvatarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelAvatarMouseEntered
@@ -500,93 +500,93 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     private void btnUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUndoActionPerformed
         painelDesenho.desfazer();
-        
-        if(painelDesenho.retornarEstado() == 1){
+
+        if (painelDesenho.retornarEstado() == 1) {
             labelLog.setForeground(ORANGE);
             labelLog.setText("Desfez o Limpar Quadro");
-        }else if(painelDesenho.retornarEstado() == 2){
+        } else if (painelDesenho.retornarEstado() == 2) {
             labelLog.setForeground(ORANGE);
-            labelLog.setText("Desfez: " + painelDesenho.redoFormaPeek().getClass().getSimpleName());  
+            labelLog.setText("Desfez: " + painelDesenho.redoFormaPeek().getClass().getSimpleName());
         }
         atualizarDesenhosPilhas();
         atualizarPilhas();
-        
+
     }//GEN-LAST:event_btnUndoActionPerformed
 
     private void btnRedoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedoActionPerformed
         painelDesenho.refazer();
-        
-        if(painelDesenho.retornarEstado() == 3){
+
+        if (painelDesenho.retornarEstado() == 3) {
             labelLog.setForeground(Color.BLUE);
             labelLog.setText("Refez o Limpar Quadro");
-        }else if(painelDesenho.retornarEstado() == 4){
+        } else if (painelDesenho.retornarEstado() == 4) {
             labelLog.setForeground(Color.BLUE);
             labelLog.setText("Refez: " + painelDesenho.undoFormaPeek().getClass().getSimpleName());
         }
         atualizarDesenhosPilhas();
         atualizarPilhas();
-          
+
     }//GEN-LAST:event_btnRedoActionPerformed
 
-    public void visibilidadeLog(boolean valor){
+    public void visibilidadeLog(boolean valor) {
         labelLog.setVisible(valor);
         labelLog.revalidate();
     }
-    
-    public void ativarLimparAlternativo(boolean valor){
-        if(valor){
+
+    public void ativarLimparAlternativo(boolean valor) {
+        if (valor) {
             painelDesenho.setLimparAlternativo(true);
-        }else{
+        } else {
             painelDesenho.setLimparAlternativo(false);
         }
     }
-    
-    public int tamanhoStacks(int stackNum){
+
+    public int tamanhoStacks(int stackNum) {
         return painelDesenho.getStackTamanho(stackNum);
     }
-    
+
     public void atualizarPilhas() {
         if (janelaPilhas != null) {
             janelaPilhas.repaint(); // redesenha a janela inteira
         }
     }
-    
-    private void atualizarDesenhosPilhas(){
-        
+
+    private void atualizarDesenhosPilhas() {
+
         if (painelDesenho.getStackTamanho(1) > 0) {
             janelaPilhas.setFormaDesfazer(painelDesenho.undoFormaPeek().getClass().getSimpleName());
-        } else if(painelDesenho.getStackTamanho(3) > 0){
+        } else if (painelDesenho.getStackTamanho(3) > 0) {
             janelaPilhas.setFormaDesfazer("RedesenharTudo");
-        } else{
+        } else {
             janelaPilhas.setFormaDesfazer("");
         }
-        
+
         if (painelDesenho.getStackTamanho(2) > 0) {
             janelaPilhas.setFormaRefazer(painelDesenho.redoFormaPeek().getClass().getSimpleName());
-        } else if(painelDesenho.getStackTamanho(4) > 0){
+        } else if (painelDesenho.getStackTamanho(4) > 0) {
             janelaPilhas.setFormaRefazer("LimparTudo");
-        } else{
+        } else {
             janelaPilhas.setFormaRefazer("");
         }
-        
+
     }
-    
-    public void limparStacks(){
+
+    public void limparStacks() {
         painelDesenho.limparStacks();
     }
-    
-    private void registrarKeyBidings(){
+
+    private void registrarKeyBidings() {
         InputMap im = painelDesenho.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         ActionMap am = painelDesenho.getActionMap();
-        
+
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK), "desfazer");
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_Y, KeyEvent.CTRL_DOWN_MASK), "refazer");
-        
-        am.put("desfazer", new AbstractAction(){
+
+        am.put("desfazer", new AbstractAction() {
             @Override
-            public void actionPerformed(ActionEvent e){
+            public void actionPerformed(ActionEvent e) {
                 painelDesenho.desfazer();
-               
+
                 if (painelDesenho.retornarEstado() == 1) {
                     labelLog.setForeground(ORANGE);
                     labelLog.setText("Desfez o Limpar Quadro");
@@ -598,24 +598,24 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 atualizarPilhas();
             }
         });
-        
-        am.put("refazer", new AbstractAction(){
-           @Override
-           public void actionPerformed(ActionEvent e){
-               painelDesenho.refazer();
 
-               if (painelDesenho.retornarEstado() == 3) {
-                   labelLog.setForeground(Color.BLUE);
-                   labelLog.setText("Refez o Limpar Quadro");
-               } else if (painelDesenho.retornarEstado() == 4) {
-                   labelLog.setForeground(Color.BLUE);
-                   labelLog.setText("Refez: " + painelDesenho.undoFormaPeek().getClass().getSimpleName());
-               }
-               atualizarDesenhosPilhas();
-               atualizarPilhas();
-           }
+        am.put("refazer", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                painelDesenho.refazer();
+
+                if (painelDesenho.retornarEstado() == 3) {
+                    labelLog.setForeground(Color.BLUE);
+                    labelLog.setText("Refez o Limpar Quadro");
+                } else if (painelDesenho.retornarEstado() == 4) {
+                    labelLog.setForeground(Color.BLUE);
+                    labelLog.setText("Refez: " + painelDesenho.undoFormaPeek().getClass().getSimpleName());
+                }
+                atualizarDesenhosPilhas();
+                atualizarPilhas();
+            }
         });
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

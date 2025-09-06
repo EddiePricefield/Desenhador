@@ -87,6 +87,7 @@
         <Component class="javax.swing.JCheckBox" name="checkLimparQuadro">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ativar &quot;Limpar Quadro&quot; Alternativo"/>
+            <Property name="toolTipText" type="java.lang.String" value="Ativa o m&#xe9;todo de usar pilhas para o Limpar Quadro"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkLimparQuadroActionPerformed"/>
@@ -95,6 +96,7 @@
         <Component class="javax.swing.JCheckBox" name="checkLog">
           <Properties>
             <Property name="text" type="java.lang.String" value="Exibir Log"/>
+            <Property name="toolTipText" type="java.lang.String" value="Ativa o hist&#xf3;rico de formas no Painel de Desenho"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkLogActionPerformed"/>
