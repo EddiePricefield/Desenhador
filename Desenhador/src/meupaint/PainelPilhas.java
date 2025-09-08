@@ -6,6 +6,7 @@ package meupaint;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
@@ -40,6 +41,16 @@ public class PainelPilhas extends JPanel {
         //Desenho das Formas dentro do Retângulo PRECISO DAR REPAINT() NA JANELA DE PILHAS QUANDO EU CHAMAR O NEGOCIO
         g2.setStroke(new BasicStroke(3));
         switch (formaDesfazer) {
+            case "Pincel":
+                g2.setColor(ORANGE);
+                g2.setFont(new Font("SansSerif", Font.BOLD, 20));
+                g2.drawString("Pincel", 68, 78);
+                break;
+            case "Borracha":
+                g2.setColor(ORANGE);
+                g2.setFont(new Font("SansSerif", Font.BOLD, 20));
+                g2.drawString("Borracha", 53, 78);
+                break;
             case "Linha":
                 g2.setColor(ORANGE);
                 g2.drawLine(75, 50, 115, 90);
@@ -83,6 +94,16 @@ public class PainelPilhas extends JPanel {
         }
 
         switch (formaRefazer) {
+            case "Pincel":
+                g2.setColor(Color.BLUE);
+                g2.setFont(new Font("SansSerif", Font.BOLD, 20));
+                g2.drawString("Pincel", 278, 78);
+                break;
+            case "Borracha":
+                g2.setColor(Color.BLUE);
+                g2.setFont(new Font("SansSerif", Font.BOLD, 20));
+                g2.drawString("Borracha", 263, 78);
+                break;
             case "Linha":
                 g2.setColor(Color.BLUE);
                 g2.drawLine(285, 50, 325, 90);

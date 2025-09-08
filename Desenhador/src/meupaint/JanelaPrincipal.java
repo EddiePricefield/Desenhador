@@ -50,6 +50,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         painelDesenho = new meupaint.PainelDesenho();
         labelLog = new java.awt.Label();
         panelFormas = new javax.swing.JPanel();
+        btnPincel = new javax.swing.JToggleButton();
+        btnBorracha = new javax.swing.JToggleButton();
         btnLinha = new javax.swing.JToggleButton();
         btnRetangulo = new javax.swing.JToggleButton();
         btnElipse = new javax.swing.JToggleButton();
@@ -111,8 +113,24 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         panelFormas.setBorder(javax.swing.BorderFactory.createTitledBorder("Formas"));
 
+        buttonGroup.add(btnPincel);
+        btnPincel.setSelected(true);
+        btnPincel.setText("Pincel");
+        btnPincel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPincelActionPerformed(evt);
+            }
+        });
+
+        buttonGroup.add(btnBorracha);
+        btnBorracha.setText("Borracha");
+        btnBorracha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrachaActionPerformed(evt);
+            }
+        });
+
         buttonGroup.add(btnLinha);
-        btnLinha.setSelected(true);
         btnLinha.setText("Linha");
         btnLinha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLinha.addActionListener(new java.awt.event.ActionListener() {
@@ -228,6 +246,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             panelFormasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFormasLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(btnPincel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBorracha)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnLinha)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRetangulo)
@@ -239,7 +261,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 .addComponent(btnPoligono)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ladosSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnUndo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRedo)
@@ -269,7 +291,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                     .addComponent(btnPoligono)
                     .addComponent(ladosSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUndo)
-                    .addComponent(btnRedo))
+                    .addComponent(btnRedo)
+                    .addComponent(btnPincel)
+                    .addComponent(btnBorracha))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -379,6 +403,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             forma = new Triangulo();
         } else if (btnPoligono.isSelected()) {
             forma = new Poligono((int) (ladosSpinner.getValue()));
+        } else if (btnPincel.isSelected()) {
+            forma = new Pincel();
+        } else if (btnBorracha.isSelected()) {
+            forma = new Borracha();
         }
 
         forma.setTamanhoContorno(sliderContorno.getValue());
@@ -407,7 +435,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_painelDesenhoMouseReleased
 
     private void painelDesenhoMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelDesenhoMouseDragged
-
+        
         forma.setX2(evt.getX());
         forma.setY2(evt.getY());
 
@@ -528,6 +556,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnRedoActionPerformed
 
+    private void btnPincelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPincelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPincelActionPerformed
+
+    private void btnBorrachaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrachaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBorrachaActionPerformed
+
     public void visibilidadeLog(boolean valor) {
         labelLog.setVisible(valor);
         labelLog.revalidate();
@@ -619,9 +655,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton btnBorracha;
     private javax.swing.JButton btnConfigs;
     private javax.swing.JToggleButton btnElipse;
     private javax.swing.JToggleButton btnLinha;
+    private javax.swing.JToggleButton btnPincel;
     private javax.swing.JToggleButton btnPoligono;
     private javax.swing.JButton btnRedo;
     private javax.swing.JButton btnRefresh;
