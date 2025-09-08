@@ -1,10 +1,13 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+     * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+     * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package meupaint;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -28,12 +31,22 @@ public class PainelDesenho extends JPanel {
     private int estadoStack;
     private boolean limparAlternativo;
 
+    private boolean pincelAtivo = true;
+    private boolean borrachaAtiva;
+
+    private int mouseX;
+    private int mouseY;
+
+    private Color corPincel = new Color(0, 0, 0, 0);
+    private int tamanhoPincel;
+
     public PainelDesenho() {
         formas = new ArrayList<>();
         undoForma = new Stack<>();
         redoForma = new Stack<>();
         undoTudo = new Stack<>();
         redoTudo = new Stack<>();
+        ativarMouseListener();
     }
 
     @Override
@@ -47,6 +60,8 @@ public class PainelDesenho extends JPanel {
         if (formaTemp != null) { //Evitar o NullPointerException porque aqui seria inicializado como null
             formaTemp.desenhar(g);
         }
+
+        desenharReferencias(g);
 
     }
 
@@ -62,6 +77,72 @@ public class PainelDesenho extends JPanel {
         if (limparAlternativo) {
             redoTudo.clear();
         }
+    }
+
+    public void setPincel(boolean valor) {
+        pincelAtivo = valor;
+        borrachaAtiva = false;
+    }
+
+    public void setTamanhoPincel(int tamanho) {
+        tamanhoPincel = tamanho;
+    }
+
+    public void setCorPincel(Color color) {
+        corPincel = color;
+    }
+
+    public void setBorracha(boolean valor) {
+        borrachaAtiva = valor;
+        pincelAtivo = false;
+    }
+
+    public void ativarMouseListener() {
+        addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                if (pincelAtivo || borrachaAtiva) {
+                    mouseX = e.getX();
+                    mouseY = e.getY();
+
+                    if (!corPincel.equals(new Color(0, 0, 0, 0))) {
+                        repaint();
+                        revalidate();
+                    }
+                }
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                if (borrachaAtiva) {
+                    mouseX = e.getX();
+                    mouseY = e.getY();
+
+                    if (!corPincel.equals(new Color(0, 0, 0, 0))) {
+                        repaint();
+                        revalidate();
+                    }
+                }
+            }
+        });
+    }
+
+    public void desenharReferencias(Graphics g) {
+
+        int raio = tamanhoPincel / 2;
+
+        if (pincelAtivo) {
+            g.setColor(corPincel);
+            g.fillOval(mouseX - raio, mouseY - raio, tamanhoPincel, tamanhoPincel);
+        } else if (borrachaAtiva) {
+            if (corPincel.equals(new Color(0, 0, 0, 0))) {
+                g.setColor(corPincel);
+            } else {
+                g.setColor(Color.BLACK);
+            }
+            g.drawOval(mouseX - raio, mouseY - raio, tamanhoPincel, tamanhoPincel);
+        }
+
     }
 
     public void limparListas() { //Limpar todas as formas da tela, ou seja, limpar o array

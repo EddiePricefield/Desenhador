@@ -68,9 +68,13 @@
             <LineBorder/>
           </Border>
         </Property>
+        <Property name="opaque" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="mouseDragged" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="painelDesenhoMouseDragged"/>
+        <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="painelDesenhoMouseMoved"/>
+        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="painelDesenhoMouseEntered"/>
+        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="painelDesenhoMouseExited"/>
         <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="painelDesenhoMousePressed"/>
         <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="painelDesenhoMouseReleased"/>
       </Events>
@@ -78,9 +82,9 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="labelLog" min="-2" pref="255" max="-2" attributes="0"/>
+                  <Component id="labelLog" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -88,7 +92,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="508" max="32767" attributes="0"/>
+                  <EmptySpace pref="486" max="32767" attributes="0"/>
                   <Component id="labelLog" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -96,19 +100,15 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="java.awt.Label" name="labelLog">
+        <Component class="javax.swing.JLabel" name="labelLog">
           <Properties>
-            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor de Movimento"/>
-            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="12" style="1"/>
+              <Font name="Segoe UI" size="12" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="33" green="33" red="ff" type="rgb"/>
+              <Color blue="0" green="0" red="cc" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Log de Formas:"/>
-            <Property name="visible" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="Log de Formas"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -191,6 +191,9 @@
             </Property>
             <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Pincel"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor em Forma de M&#xe3;o"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPincelActionPerformed"/>
@@ -202,6 +205,9 @@
               <ComponentRef name="buttonGroup"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Borracha"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor em Forma de M&#xe3;o"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBorrachaActionPerformed"/>
@@ -255,7 +261,13 @@
               <ComponentRef name="buttonGroup"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Tri&#xe2;ngulo"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor em Forma de M&#xe3;o"/>
+            </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTrianguloActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JToggleButton" name="btnPoligono">
           <Properties>
@@ -263,7 +275,13 @@
               <ComponentRef name="buttonGroup"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Pol&#xed;gono"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor em Forma de M&#xe3;o"/>
+            </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPoligonoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JSpinner" name="ladosSpinner">
           <Properties>
@@ -273,10 +291,13 @@
             <Property name="toolTipText" type="java.lang.String" value="Lados do Pol&#xed;gono Regular"/>
             <Property name="focusCycleRoot" type="boolean" value="true"/>
           </Properties>
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="ladosSpinnerStateChanged"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JSlider" name="sliderContorno">
           <Properties>
-            <Property name="maximum" type="int" value="10"/>
+            <Property name="maximum" type="int" value="30"/>
             <Property name="minimum" type="int" value="1"/>
             <Property name="toolTipText" type="java.lang.String" value="Tamanho do Contorno"/>
             <Property name="value" type="int" value="1"/>
@@ -367,6 +388,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x21a9;"/>
             <Property name="toolTipText" type="java.lang.String" value="Desfazer"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor em Forma de M&#xe3;o"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUndoActionPerformed"/>
@@ -376,6 +400,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x21aa;"/>
             <Property name="toolTipText" type="java.lang.String" value="Refazer"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor em Forma de M&#xe3;o"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRedoActionPerformed"/>
@@ -445,8 +472,10 @@
               </Border>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Desenvolvido por EddiePricefield"/>
+            <Property name="imagemParada" type="boolean" value="true"/>
           </Properties>
           <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="painelAvatarMouseClicked"/>
             <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="painelAvatarMouseEntered"/>
             <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="painelAvatarMouseExited"/>
           </Events>

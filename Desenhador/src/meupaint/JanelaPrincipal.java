@@ -5,8 +5,12 @@
 package meupaint;
 
 import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Desktop;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.net.URI;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
@@ -25,7 +29,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     JanelaPilhas janelaPilhas = new JanelaPilhas(this);
 
-    Color VERDE = new Color(20, 115, 49);
+    Color GREEN = new Color(20, 115, 49);
     Color ORANGE = new Color(201, 94, 8);
 
     /**
@@ -34,6 +38,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     public JanelaPrincipal() {
         initComponents();
         ((DefaultEditor) ladosSpinner.getEditor()).getTextField().setEditable(false);
+        visibilidadeLog(false);
         registrarKeyBidings();
     }
 
@@ -48,7 +53,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         buttonGroup = new javax.swing.ButtonGroup();
         painelDesenho = new meupaint.PainelDesenho();
-        labelLog = new java.awt.Label();
+        labelLog = new javax.swing.JLabel();
         panelFormas = new javax.swing.JPanel();
         btnPincel = new javax.swing.JToggleButton();
         btnBorracha = new javax.swing.JToggleButton();
@@ -74,12 +79,22 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         painelDesenho.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        painelDesenho.setOpaque(false);
         painelDesenho.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 painelDesenhoMouseDragged(evt);
             }
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                painelDesenhoMouseMoved(evt);
+            }
         });
         painelDesenho.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                painelDesenhoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                painelDesenhoMouseExited(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 painelDesenhoMousePressed(evt);
             }
@@ -88,11 +103,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        labelLog.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
-        labelLog.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        labelLog.setForeground(new java.awt.Color(255, 51, 51));
-        labelLog.setText("Log de Formas:");
-        labelLog.setVisible(false);
+        labelLog.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        labelLog.setForeground(new java.awt.Color(204, 0, 0));
+        labelLog.setText("Log de Formas");
 
         javax.swing.GroupLayout painelDesenhoLayout = new javax.swing.GroupLayout(painelDesenho);
         painelDesenho.setLayout(painelDesenhoLayout);
@@ -100,14 +113,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             painelDesenhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelDesenhoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelLog, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelLog)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelDesenhoLayout.setVerticalGroup(
             painelDesenhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDesenhoLayout.createSequentialGroup()
-                .addContainerGap(508, Short.MAX_VALUE)
-                .addComponent(labelLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(486, Short.MAX_VALUE)
+                .addComponent(labelLog)
                 .addContainerGap())
         );
 
@@ -116,6 +129,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         buttonGroup.add(btnPincel);
         btnPincel.setSelected(true);
         btnPincel.setText("Pincel");
+        btnPincel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnPincel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPincelActionPerformed(evt);
@@ -124,6 +138,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         buttonGroup.add(btnBorracha);
         btnBorracha.setText("Borracha");
+        btnBorracha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBorracha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBorrachaActionPerformed(evt);
@@ -159,15 +174,32 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         buttonGroup.add(btnTriangulo);
         btnTriangulo.setText("Triângulo");
+        btnTriangulo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnTriangulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTrianguloActionPerformed(evt);
+            }
+        });
 
         buttonGroup.add(btnPoligono);
         btnPoligono.setText("Polígono");
+        btnPoligono.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPoligono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPoligonoActionPerformed(evt);
+            }
+        });
 
         ladosSpinner.setModel(new javax.swing.SpinnerNumberModel(5, 3, null, 1));
         ladosSpinner.setToolTipText("Lados do Polígono Regular");
         ladosSpinner.setFocusCycleRoot(true);
+        ladosSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                ladosSpinnerStateChanged(evt);
+            }
+        });
 
-        sliderContorno.setMaximum(10);
+        sliderContorno.setMaximum(30);
         sliderContorno.setMinimum(1);
         sliderContorno.setToolTipText("Tamanho do Contorno");
         sliderContorno.setValue(1);
@@ -226,6 +258,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         btnUndo.setText("↩");
         btnUndo.setToolTipText("Desfazer");
+        btnUndo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUndo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUndoActionPerformed(evt);
@@ -234,6 +267,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         btnRedo.setText("↪");
         btnRedo.setToolTipText("Refazer");
+        btnRedo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRedo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRedoActionPerformed(evt);
@@ -317,7 +351,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         painelAvatar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         painelAvatar.setToolTipText("Desenvolvido por EddiePricefield");
+        painelAvatar.setImagemParada(true);
         painelAvatar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                painelAvatarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 painelAvatarMouseEntered(evt);
             }
@@ -423,7 +461,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         forma.setY2(evt.getY());
         painelDesenho.addFormaTemp(forma);
         painelDesenho.setFormaTemp(null);
-        labelLog.setForeground(VERDE);
+        labelLog.setForeground(GREEN);
         labelLog.setText("Desenhou: " + painelDesenho.getLastForma().getClass().getSimpleName());
 
         janelaPilhas.setFormaDesfazer(painelDesenho.getLastForma().getClass().getSimpleName());
@@ -435,7 +473,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_painelDesenhoMouseReleased
 
     private void painelDesenhoMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelDesenhoMouseDragged
-        
+
         forma.setX2(evt.getX());
         forma.setY2(evt.getY());
 
@@ -446,11 +484,13 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_painelDesenhoMouseDragged
 
     private void btnRetanguloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetanguloActionPerformed
-        // TODO add your handling code here:
+        painelDesenho.setPincel(false);
+        painelDesenho.setBorracha(false);
     }//GEN-LAST:event_btnRetanguloActionPerformed
 
     private void btnLinhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLinhaActionPerformed
-        // TODO add your handling code here:
+        painelDesenho.setPincel(false);
+        painelDesenho.setBorracha(false);
     }//GEN-LAST:event_btnLinhaActionPerformed
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
@@ -470,7 +510,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnElipseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElipseActionPerformed
-        // TODO add your handling code here:
+        painelDesenho.setPincel(false);
+        painelDesenho.setBorracha(false);
     }//GEN-LAST:event_btnElipseActionPerformed
 
     private void painelContornoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelContornoMouseClicked
@@ -485,6 +526,12 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         }
 
+        labelLog.setForeground(Color.DARK_GRAY);
+        labelLog.setText("Alterou: Cor do Contorno");
+
+        painelDesenho.setCorPincel(painelContorno.getBackground());
+        painelDesenho.repaint();
+
     }//GEN-LAST:event_painelContornoMouseClicked
 
     private void painelPreenchimentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelPreenchimentoMouseClicked
@@ -498,11 +545,22 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             painelPreenchimento.setBackground(c);
         }
 
+        labelLog.setForeground(Color.DARK_GRAY);
+        labelLog.setText("Alterou: Cor do Preenchimento");
+
+        painelDesenho.repaint();
+
     }//GEN-LAST:event_painelPreenchimentoMouseClicked
 
     private void sliderContornoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderContornoStateChanged
 
+        painelDesenho.setTamanhoPincel(sliderContorno.getValue());
+        painelDesenho.repaint();
+
         labelContorno.setText((String.valueOf(sliderContorno.getValue())));
+
+        labelLog.setForeground(Color.DARK_GRAY);
+        labelLog.setText("Alterou: Tamanho do Contorno");
 
     }//GEN-LAST:event_sliderContornoStateChanged
 
@@ -513,6 +571,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConfigsActionPerformed
 
     private void painelAvatarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelAvatarMouseEntered
+
+        painelAvatar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         painelAvatar.setImagemParada(false);
         painelAvatar.repaint();
@@ -557,12 +617,60 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRedoActionPerformed
 
     private void btnPincelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPincelActionPerformed
-        // TODO add your handling code here:
+        painelDesenho.setPincel(btnPincel.isSelected());
+        painelDesenho.setTamanhoPincel(sliderContorno.getValue());
+        painelDesenho.repaint();
     }//GEN-LAST:event_btnPincelActionPerformed
 
     private void btnBorrachaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrachaActionPerformed
-        // TODO add your handling code here:
+        painelDesenho.setBorracha(btnBorracha.isSelected());
+        painelDesenho.setTamanhoPincel(sliderContorno.getValue());
+        painelDesenho.repaint();
     }//GEN-LAST:event_btnBorrachaActionPerformed
+
+    private void ladosSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ladosSpinnerStateChanged
+        labelLog.setForeground(Color.DARK_GRAY);
+        labelLog.setText("Alterou: Lados do Polígono");
+    }//GEN-LAST:event_ladosSpinnerStateChanged
+
+    private void painelAvatarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelAvatarMouseClicked
+        labelLog.setForeground(Color.BLACK);
+        labelLog.setText("Abrindo link do Github...");
+
+        try {
+            URI link = new URI("https://github.com/EddiePricefield");
+            Desktop.getDesktop().browse(link);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }//GEN-LAST:event_painelAvatarMouseClicked
+
+    private void painelDesenhoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelDesenhoMouseEntered
+        painelDesenho.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+        painelDesenho.setCorPincel(painelContorno.getBackground());
+        painelDesenho.repaint();
+    }//GEN-LAST:event_painelDesenhoMouseEntered
+
+    private void painelDesenhoMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelDesenhoMouseMoved
+
+
+    }//GEN-LAST:event_painelDesenhoMouseMoved
+
+    private void painelDesenhoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelDesenhoMouseExited
+        painelDesenho.setCorPincel(new Color(0, 0, 0, 0));
+        painelDesenho.repaint();
+    }//GEN-LAST:event_painelDesenhoMouseExited
+
+    private void btnTrianguloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrianguloActionPerformed
+        painelDesenho.setPincel(false);
+        painelDesenho.setBorracha(false);
+    }//GEN-LAST:event_btnTrianguloActionPerformed
+
+    private void btnPoligonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPoligonoActionPerformed
+        painelDesenho.setPincel(false);
+        painelDesenho.setBorracha(false);
+    }//GEN-LAST:event_btnPoligonoActionPerformed
 
     public void visibilidadeLog(boolean valor) {
         labelLog.setVisible(valor);
@@ -570,11 +678,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }
 
     public void ativarLimparAlternativo(boolean valor) {
-        if (valor) {
-            painelDesenho.setLimparAlternativo(true);
-        } else {
-            painelDesenho.setLimparAlternativo(false);
-        }
+        painelDesenho.setLimparAlternativo(valor);
     }
 
     public int tamanhoStacks(int stackNum) {
@@ -617,6 +721,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK), "desfazer");
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_Y, KeyEvent.CTRL_DOWN_MASK), "refazer");
+        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD, KeyEvent.CTRL_DOWN_MASK), "aumentarContorno");
+        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, KeyEvent.CTRL_DOWN_MASK), "diminuirContorno");
+        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, KeyEvent.CTRL_DOWN_MASK | KeyEvent.SHIFT_DOWN_MASK), "aumentarContorno");
 
         am.put("desfazer", new AbstractAction() {
             @Override
@@ -652,6 +759,29 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        am.put("aumentarContorno", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (sliderContorno.getValue() < 30) {
+                    sliderContorno.setValue(sliderContorno.getValue() + 1);
+                }
+
+            }
+        });
+
+        am.put("diminuirContorno", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (sliderContorno.getValue() > 0) {
+                    sliderContorno.setValue(sliderContorno.getValue() - 1);
+                }
+
+            }
+        });
+
+//        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -668,7 +798,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnUndo;
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JLabel labelContorno;
-    private java.awt.Label labelLog;
+    private javax.swing.JLabel labelLog;
     private javax.swing.JSpinner ladosSpinner;
     private meupaint.PainelAvatar painelAvatar;
     private javax.swing.JPanel painelContorno;
