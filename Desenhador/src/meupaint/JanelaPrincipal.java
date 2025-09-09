@@ -31,6 +31,7 @@ import javax.swing.InputMap;
 import javax.swing.JColorChooser;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JSpinner.DefaultEditor;
 import javax.swing.KeyStroke;
 
@@ -90,6 +91,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         painelAvatar = new meupaint.PainelAvatar();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuArquivo = new javax.swing.JMenu();
+        subMenuNovo = new javax.swing.JMenuItem();
         subMenuAbrir = new javax.swing.JMenuItem();
         subMenuSalvar = new javax.swing.JMenuItem();
         subMenuExportar = new javax.swing.JMenuItem();
@@ -425,7 +427,17 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        subMenuAbrir.setText("Abrir");
+        subMenuNovo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        subMenuNovo.setText("Novo Quadro de Desenho");
+        subMenuNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                subMenuNovoActionPerformed(evt);
+            }
+        });
+        menuArquivo.add(subMenuNovo);
+
+        subMenuAbrir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        subMenuAbrir.setText("Abrir Dados de Desenho");
         subMenuAbrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 subMenuAbrirActionPerformed(evt);
@@ -433,7 +445,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         });
         menuArquivo.add(subMenuAbrir);
 
-        subMenuSalvar.setText("Salvar");
+        subMenuSalvar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        subMenuSalvar.setText("Salvar Dados de Desenho");
         subMenuSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 subMenuSalvarActionPerformed(evt);
@@ -441,7 +454,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         });
         menuArquivo.add(subMenuSalvar);
 
-        subMenuExportar.setText("Exportar como PNG...");
+        subMenuExportar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        subMenuExportar.setText("Exportar como PNG");
         subMenuExportar.addMenuKeyListener(new javax.swing.event.MenuKeyListener() {
             public void menuKeyPressed(javax.swing.event.MenuKeyEvent evt) {
                 subMenuExportarMenuKeyPressed(evt);
@@ -778,12 +792,27 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             abrirDesenho();
         } catch (ClassNotFoundException ex) {
             System.getLogger(JanelaPrincipal.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            labelLog.setForeground(Color.RED);
+            labelLog.setText("Erro ao abrir os dados do desenho");
         }
     }//GEN-LAST:event_subMenuAbrirActionPerformed
 
     private void menuArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuArquivoActionPerformed
 
     }//GEN-LAST:event_menuArquivoActionPerformed
+
+    private void subMenuNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subMenuNovoActionPerformed
+        
+        JOptionPane.showConfirmDialog(null, "Esta ação irá apagar todo o Quadro de Desenho. Você tem certeza?", "Criar Novo Quadro", JOptionPane.YES_NO_OPTION);
+        
+        if(JOptionPane.YES_OPTION == 0){
+            painelDesenho.limparListas();
+            atualizarPilhas();
+            atualizarDesenhosPilhas();
+            labelLog.setForeground(Color.DARK_GRAY);
+            labelLog.setText("Informação: Criou um Novo Quadro de Desenho");
+        }
+    }//GEN-LAST:event_subMenuNovoActionPerformed
 
     public void visibilidadeLog(boolean valor) {
         labelLog.setVisible(valor);
@@ -955,9 +984,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, KeyEvent.CTRL_DOWN_MASK | KeyEvent.SHIFT_DOWN_MASK), "aumentarContorno");
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, KeyEvent.CTRL_DOWN_MASK), "diminuirContorno");
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT, KeyEvent.CTRL_DOWN_MASK), "diminuirContorno");
-        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK), "abrirDesenho");
-        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK), "salvarDesenho");
-        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK | KeyEvent.SHIFT_DOWN_MASK), "exportarDesenho");
 
         am.put("desfazer", new AbstractAction() {
             @Override
@@ -1015,36 +1041,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             }
         });
         
-        am.put("abrirDesenho", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                
-                try {
-                    abrirDesenho();
-                } catch (ClassNotFoundException ex) {
-                    System.getLogger(JanelaPrincipal.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-                }
-                
-            }
-        });
-        
-        am.put("salvarDesenho", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                salvarDesenho();
-
-            }
-        });
-        
-        am.put("exportarDesenho", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                exportarDesenho();
-
-            }
-        });
 
 //        
     }
@@ -1076,6 +1072,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JSlider sliderContorno;
     private javax.swing.JMenuItem subMenuAbrir;
     private javax.swing.JMenuItem subMenuExportar;
+    private javax.swing.JMenuItem subMenuNovo;
     private javax.swing.JMenuItem subMenuSalvar;
     // End of variables declaration//GEN-END:variables
 }
