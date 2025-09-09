@@ -7,12 +7,15 @@ package meupaint;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Desktop;
-import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.net.URI;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
+import javax.swing.ImageIcon;
 import javax.swing.InputMap;
 import javax.swing.JColorChooser;
 import javax.swing.JComponent;
@@ -199,10 +202,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        sliderContorno.setMaximum(30);
-        sliderContorno.setMinimum(1);
+        sliderContorno.setMaximum(31);
+        sliderContorno.setMinimum(2);
         sliderContorno.setToolTipText("Tamanho do Contorno");
-        sliderContorno.setValue(1);
+        sliderContorno.setValue(2);
         sliderContorno.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         sliderContorno.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -527,7 +530,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         }
 
         labelLog.setForeground(Color.DARK_GRAY);
-        labelLog.setText("Alterou: Cor do Contorno");
+        labelLog.setText("Informação: Alterou a cor do contorno");
 
         painelDesenho.setCorPincel(painelContorno.getBackground());
         painelDesenho.repaint();
@@ -546,7 +549,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         }
 
         labelLog.setForeground(Color.DARK_GRAY);
-        labelLog.setText("Alterou: Cor do Preenchimento");
+        labelLog.setText("Informação: Alterou a cor do preenchimento");
 
         painelDesenho.repaint();
 
@@ -557,10 +560,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         painelDesenho.setTamanhoPincel(sliderContorno.getValue());
         painelDesenho.repaint();
 
-        labelContorno.setText((String.valueOf(sliderContorno.getValue())));
+        labelContorno.setText((String.valueOf(sliderContorno.getValue() - 1)));
 
         labelLog.setForeground(Color.DARK_GRAY);
-        labelLog.setText("Alterou: Tamanho do Contorno");
+        labelLog.setText("Informação: Alterou o tamanho do contorno");
 
     }//GEN-LAST:event_sliderContornoStateChanged
 
@@ -595,6 +598,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         } else if (painelDesenho.retornarEstado() == 2) {
             labelLog.setForeground(ORANGE);
             labelLog.setText("Desfez: " + painelDesenho.redoFormaPeek().getClass().getSimpleName());
+        } else {
+            labelLog.setForeground(Color.DARK_GRAY);
+            labelLog.setText("Informação: Não há formas para desfazer");
         }
         atualizarDesenhosPilhas();
         atualizarPilhas();
@@ -610,6 +616,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         } else if (painelDesenho.retornarEstado() == 4) {
             labelLog.setForeground(Color.BLUE);
             labelLog.setText("Refez: " + painelDesenho.undoFormaPeek().getClass().getSimpleName());
+        } else {
+            labelLog.setForeground(Color.DARK_GRAY);
+            labelLog.setText("Informação: Não há formas para refazer");
         }
         atualizarDesenhosPilhas();
         atualizarPilhas();
@@ -630,7 +639,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     private void ladosSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ladosSpinnerStateChanged
         labelLog.setForeground(Color.DARK_GRAY);
-        labelLog.setText("Alterou: Lados do Polígono");
+        labelLog.setText("Informação: Alterou o número de lados do polígono");
     }//GEN-LAST:event_ladosSpinnerStateChanged
 
     private void painelAvatarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelAvatarMouseClicked
@@ -647,7 +656,17 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_painelAvatarMouseClicked
 
     private void painelDesenhoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelDesenhoMouseEntered
-        painelDesenho.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+
+        if (btnPincel.isSelected()) {
+            Image imagemPincel = new ImageIcon(getClass().getResource("/images/pincel.png")).getImage();
+            painelDesenho.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(imagemPincel, new Point(0, 0), "CursorPincel"));
+        } else if (btnBorracha.isSelected()) {
+            Image imagemBorracha = new ImageIcon(getClass().getResource("/images/borracha.png")).getImage();
+            painelDesenho.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(imagemBorracha, new Point(0, 0), "CursorBorracha"));
+        } else {
+            painelDesenho.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+        }
+
         painelDesenho.setCorPincel(painelContorno.getBackground());
         painelDesenho.repaint();
     }//GEN-LAST:event_painelDesenhoMouseEntered
@@ -679,6 +698,16 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     public void ativarLimparAlternativo(boolean valor) {
         painelDesenho.setLimparAlternativo(valor);
+    }
+
+    public void logLimparAlternativo() {
+        if (painelDesenho.getLimparAlternativo()) {
+            labelLog.setForeground(Color.DARK_GRAY);
+            labelLog.setText("Informação: Ativou o \"Limpar Alternativo\"");
+        } else {
+            labelLog.setForeground(Color.DARK_GRAY);
+            labelLog.setText("Informação: Desativou o \"Limpar Alternativo\"");
+        }
     }
 
     public int tamanhoStacks(int stackNum) {
@@ -722,8 +751,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK), "desfazer");
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_Y, KeyEvent.CTRL_DOWN_MASK), "refazer");
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD, KeyEvent.CTRL_DOWN_MASK), "aumentarContorno");
-        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, KeyEvent.CTRL_DOWN_MASK), "diminuirContorno");
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, KeyEvent.CTRL_DOWN_MASK | KeyEvent.SHIFT_DOWN_MASK), "aumentarContorno");
+        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, KeyEvent.CTRL_DOWN_MASK), "diminuirContorno");
+        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT, KeyEvent.CTRL_DOWN_MASK), "diminuirContorno");
 
         am.put("desfazer", new AbstractAction() {
             @Override

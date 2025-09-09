@@ -174,6 +174,7 @@ public class JanelaPilhas extends javax.swing.JFrame {
 
         janelaPrincipal.ativarLimparAlternativo(checkLimparQuadro.isSelected());
         janelaPrincipal.limparStacks();
+        janelaPrincipal.logLimparAlternativo();
         setFormaRefazer("");
         setFormaDesfazer("");
         repaint();

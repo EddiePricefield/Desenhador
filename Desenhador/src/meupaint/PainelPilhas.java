@@ -9,6 +9,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
@@ -42,14 +44,12 @@ public class PainelPilhas extends JPanel {
         g2.setStroke(new BasicStroke(3));
         switch (formaDesfazer) {
             case "Pincel":
-                g2.setColor(ORANGE);
-                g2.setFont(new Font("SansSerif", Font.BOLD, 20));
-                g2.drawString("Pincel", 68, 78);
+                Image pincelU = new ImageIcon(getClass().getResource("/images/pincelU.png")).getImage();
+                g2.drawImage(pincelU, 40, 30, this);
                 break;
             case "Borracha":
-                g2.setColor(ORANGE);
-                g2.setFont(new Font("SansSerif", Font.BOLD, 20));
-                g2.drawString("Borracha", 53, 78);
+                Image borrachaU = new ImageIcon(getClass().getResource("/images/borrachaU.png")).getImage();
+                g2.drawImage(borrachaU, 40, 30, this);
                 break;
             case "Linha":
                 g2.setColor(ORANGE);
@@ -95,14 +95,12 @@ public class PainelPilhas extends JPanel {
 
         switch (formaRefazer) {
             case "Pincel":
-                g2.setColor(Color.BLUE);
-                g2.setFont(new Font("SansSerif", Font.BOLD, 20));
-                g2.drawString("Pincel", 278, 78);
+                Image pincelR = new ImageIcon(getClass().getResource("/images/pincelR.png")).getImage();
+                g2.drawImage(pincelR, 250, 30, this);
                 break;
             case "Borracha":
-                g2.setColor(Color.BLUE);
-                g2.setFont(new Font("SansSerif", Font.BOLD, 20));
-                g2.drawString("Borracha", 263, 78);
+                Image borrachaU = new ImageIcon(getClass().getResource("/images/borrachaR.png")).getImage();
+                g2.drawImage(borrachaU, 250, 30, this);
                 break;
             case "Linha":
                 g2.setColor(Color.BLUE);

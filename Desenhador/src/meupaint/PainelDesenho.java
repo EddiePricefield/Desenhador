@@ -38,7 +38,7 @@ public class PainelDesenho extends JPanel {
     private int mouseY;
 
     private Color corPincel = new Color(0, 0, 0, 0);
-    private int tamanhoPincel;
+    private int tamanhoPincel = 2;
 
     public PainelDesenho() {
         formas = new ArrayList<>();
