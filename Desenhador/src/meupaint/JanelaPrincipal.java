@@ -7,18 +7,30 @@ package meupaint;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Desktop;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.URI;
+import java.util.List;
+import java.util.Stack;
+import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.ImageIcon;
 import javax.swing.InputMap;
 import javax.swing.JColorChooser;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JSpinner.DefaultEditor;
 import javax.swing.KeyStroke;
 
@@ -76,6 +88,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         btnRefresh = new javax.swing.JButton();
         btnConfigs = new javax.swing.JButton();
         painelAvatar = new meupaint.PainelAvatar();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        menuArquivo = new javax.swing.JMenu();
+        subMenuAbrir = new javax.swing.JMenuItem();
+        subMenuSalvar = new javax.swing.JMenuItem();
+        subMenuExportar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Desenhador :3");
@@ -122,7 +139,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         painelDesenhoLayout.setVerticalGroup(
             painelDesenhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDesenhoLayout.createSequentialGroup()
-                .addContainerGap(486, Short.MAX_VALUE)
+                .addContainerGap(463, Short.MAX_VALUE)
                 .addComponent(labelLog)
                 .addContainerGap())
         );
@@ -400,6 +417,55 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
             .addComponent(painelAvatar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        menuArquivo.setText("Arquivo");
+        menuArquivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuArquivoActionPerformed(evt);
+            }
+        });
+
+        subMenuAbrir.setText("Abrir");
+        subMenuAbrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                subMenuAbrirActionPerformed(evt);
+            }
+        });
+        menuArquivo.add(subMenuAbrir);
+
+        subMenuSalvar.setText("Salvar");
+        subMenuSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                subMenuSalvarActionPerformed(evt);
+            }
+        });
+        menuArquivo.add(subMenuSalvar);
+
+        subMenuExportar.setText("Exportar como PNG...");
+        subMenuExportar.addMenuKeyListener(new javax.swing.event.MenuKeyListener() {
+            public void menuKeyPressed(javax.swing.event.MenuKeyEvent evt) {
+                subMenuExportarMenuKeyPressed(evt);
+            }
+            public void menuKeyReleased(javax.swing.event.MenuKeyEvent evt) {
+            }
+            public void menuKeyTyped(javax.swing.event.MenuKeyEvent evt) {
+            }
+        });
+        subMenuExportar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                subMenuExportarMouseClicked(evt);
+            }
+        });
+        subMenuExportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                subMenuExportarActionPerformed(evt);
+            }
+        });
+        menuArquivo.add(subMenuExportar);
+
+        jMenuBar1.add(menuArquivo);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -691,6 +757,34 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         painelDesenho.setBorracha(false);
     }//GEN-LAST:event_btnPoligonoActionPerformed
 
+    private void subMenuExportarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subMenuExportarMouseClicked
+        
+    }//GEN-LAST:event_subMenuExportarMouseClicked
+
+    private void subMenuExportarMenuKeyPressed(javax.swing.event.MenuKeyEvent evt) {//GEN-FIRST:event_subMenuExportarMenuKeyPressed
+        
+    }//GEN-LAST:event_subMenuExportarMenuKeyPressed
+
+    private void subMenuExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subMenuExportarActionPerformed
+        exportarDesenho();
+    }//GEN-LAST:event_subMenuExportarActionPerformed
+
+    private void subMenuSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subMenuSalvarActionPerformed
+        salvarDesenho();
+    }//GEN-LAST:event_subMenuSalvarActionPerformed
+
+    private void subMenuAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subMenuAbrirActionPerformed
+        try {
+            abrirDesenho();
+        } catch (ClassNotFoundException ex) {
+            System.getLogger(JanelaPrincipal.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }//GEN-LAST:event_subMenuAbrirActionPerformed
+
+    private void menuArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuArquivoActionPerformed
+
+    }//GEN-LAST:event_menuArquivoActionPerformed
+
     public void visibilidadeLog(boolean valor) {
         labelLog.setVisible(valor);
         labelLog.revalidate();
@@ -743,6 +837,113 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     public void limparStacks() {
         painelDesenho.limparStacks();
     }
+    
+    public void exportarDesenho() {
+        painelDesenho.setTamanhoPincel(0);
+
+        BufferedImage bImg = new BufferedImage(painelDesenho.getWidth(), painelDesenho.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2cg = bImg.createGraphics();
+        painelDesenho.paintAll(g2cg);
+        g2cg.dispose();
+
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Exportar desenho como PNG...");
+        fileChooser.setSelectedFile(new File("desenho.png"));
+
+        if (fileChooser.showSaveDialog(painelDesenho) == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+
+            if (!fileToSave.getName().toLowerCase().endsWith(".png")) {
+                fileToSave = new File(fileToSave.getAbsolutePath() + ".png");
+            }
+
+            try {
+                ImageIO.write(bImg, "png", fileToSave);
+                labelLog.setForeground(Color.DARK_GRAY);
+                labelLog.setText("Informação: Desenho exportado como PNG");
+            } catch (IOException ex) {
+                System.getLogger(JanelaPrincipal.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                labelLog.setForeground(Color.RED);
+                labelLog.setText("Erro ao salvar o desenho como PNG");
+            }
+
+        }
+        
+        painelDesenho.setTamanhoPincel(sliderContorno.getValue());
+    }
+    
+    public void salvarDesenho() {
+        
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Salvar desenho como...");
+        fileChooser.setSelectedFile(new File("desenho.dat"));
+
+        if (fileChooser.showSaveDialog(painelDesenho) == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+
+            if (!fileToSave.getName().toLowerCase().endsWith(".dat")) {
+                fileToSave = new File(fileToSave.getAbsolutePath() + ".dat");
+            }
+
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileToSave))){
+                
+                oos.writeObject(painelDesenho.getFormas());
+                oos.writeObject(painelDesenho.getRedoForma());
+                oos.writeObject(painelDesenho.getUndoForma());
+                oos.writeObject(painelDesenho.getRedoTudo());
+                oos.writeObject(painelDesenho.getUndoTudo());
+                
+                labelLog.setForeground(Color.DARK_GRAY);
+                labelLog.setText("Informação: Desenho teve os seus dados salvos");
+            } catch (IOException ex) {
+                System.getLogger(JanelaPrincipal.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                labelLog.setForeground(Color.RED);
+                labelLog.setText("Erro ao salvar os dados do desenho");
+            }
+
+        }
+        
+    }
+    
+    public void abrirDesenho() throws ClassNotFoundException{
+        
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Salvar desenho como...");
+        fileChooser.setSelectedFile(new File("desenho.dat"));
+
+        if (fileChooser.showOpenDialog(painelDesenho) == JFileChooser.APPROVE_OPTION) {
+            File fileToOpen = fileChooser.getSelectedFile();
+
+            if (!fileToOpen.getName().toLowerCase().endsWith(".dat")) {
+                fileToOpen = new File(fileToOpen.getAbsolutePath() + ".dat");
+            }
+            
+            painelDesenho.limparListas();
+            atualizarPilhas();
+            atualizarDesenhosPilhas();
+
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileToOpen))) {
+
+                painelDesenho.setFormas((List<Forma>) ois.readObject());
+                painelDesenho.setRedoForma((Stack<Forma>) ois.readObject());
+                painelDesenho.setUndoForma((Stack<Forma>) ois.readObject());
+                painelDesenho.setRedoTudo((Stack<Stack<Forma>>) ois.readObject());
+                painelDesenho.setUndoTudo((Stack<Stack<Forma>>) ois.readObject());
+
+                labelLog.setForeground(Color.DARK_GRAY);
+                labelLog.setText("Informação: Os dados de um desenho foram abertos");
+            } catch (IOException ex) {
+                System.getLogger(JanelaPrincipal.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                labelLog.setForeground(Color.RED);
+                labelLog.setText("Erro ao abrir os dados do desenho");
+            }
+
+        }  
+        
+        atualizarPilhas();
+        atualizarDesenhosPilhas();
+        
+    }
 
     private void registrarKeyBidings() {
         InputMap im = painelDesenho.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
@@ -754,6 +955,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, KeyEvent.CTRL_DOWN_MASK | KeyEvent.SHIFT_DOWN_MASK), "aumentarContorno");
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, KeyEvent.CTRL_DOWN_MASK), "diminuirContorno");
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT, KeyEvent.CTRL_DOWN_MASK), "diminuirContorno");
+        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK), "abrirDesenho");
+        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK), "salvarDesenho");
+        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK | KeyEvent.SHIFT_DOWN_MASK), "exportarDesenho");
 
         am.put("desfazer", new AbstractAction() {
             @Override
@@ -793,7 +997,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if (sliderContorno.getValue() < 30) {
+                if (sliderContorno.getValue() <= 30) {
                     sliderContorno.setValue(sliderContorno.getValue() + 1);
                 }
 
@@ -807,6 +1011,37 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 if (sliderContorno.getValue() > 0) {
                     sliderContorno.setValue(sliderContorno.getValue() - 1);
                 }
+
+            }
+        });
+        
+        am.put("abrirDesenho", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+                try {
+                    abrirDesenho();
+                } catch (ClassNotFoundException ex) {
+                    System.getLogger(JanelaPrincipal.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                }
+                
+            }
+        });
+        
+        am.put("salvarDesenho", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                salvarDesenho();
+
+            }
+        });
+        
+        am.put("exportarDesenho", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                exportarDesenho();
 
             }
         });
@@ -827,9 +1062,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToggleButton btnTriangulo;
     private javax.swing.JButton btnUndo;
     private javax.swing.ButtonGroup buttonGroup;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel labelContorno;
     private javax.swing.JLabel labelLog;
     private javax.swing.JSpinner ladosSpinner;
+    private javax.swing.JMenu menuArquivo;
     private meupaint.PainelAvatar painelAvatar;
     private javax.swing.JPanel painelContorno;
     private meupaint.PainelDesenho painelDesenho;
@@ -837,5 +1074,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel painelPreenchimento;
     private javax.swing.JPanel panelFormas;
     private javax.swing.JSlider sliderContorno;
+    private javax.swing.JMenuItem subMenuAbrir;
+    private javax.swing.JMenuItem subMenuExportar;
+    private javax.swing.JMenuItem subMenuSalvar;
     // End of variables declaration//GEN-END:variables
 }

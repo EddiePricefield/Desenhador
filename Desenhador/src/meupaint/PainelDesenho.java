@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -17,7 +18,7 @@ import javax.swing.JPanel;
  *
  * @author Eddie
  */
-public class PainelDesenho extends JPanel {
+public class PainelDesenho extends JPanel implements Serializable {
 
     private Forma formaTemp;
 
@@ -264,5 +265,47 @@ public class PainelDesenho extends JPanel {
     public boolean getLimparAlternativo() {
         return limparAlternativo;
     }
+
+    public List<Forma> getFormas() {
+        return formas;
+    }
+
+    public Stack<Forma> getUndoForma() {
+        return undoForma;
+    }
+
+    public Stack<Forma> getRedoForma() {
+        return redoForma;
+    }
+
+    public Stack<Stack<Forma>> getUndoTudo() {
+        return undoTudo;
+    }
+
+    public Stack<Stack<Forma>> getRedoTudo() {
+        return redoTudo;
+    }
+
+    public void setFormas(List<Forma> formas) {
+        this.formas = formas;
+    }
+
+    public void setUndoForma(Stack<Forma> undoForma) {
+        this.undoForma = undoForma;
+    }
+
+    public void setRedoForma(Stack<Forma> redoForma) {
+        this.redoForma = redoForma;
+    }
+
+    public void setUndoTudo(Stack<Stack<Forma>> undoTudo) {
+        this.undoTudo = undoTudo;
+    }
+
+    public void setRedoTudo(Stack<Stack<Forma>> redoTudo) {
+        this.redoTudo = redoTudo;
+    }
+    
+    
 
 }

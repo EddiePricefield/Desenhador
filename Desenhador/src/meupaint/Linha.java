@@ -20,7 +20,7 @@ public class Linha extends Forma { //Ao invés de fazer uma lista para cada coor
         Graphics2D g2 = (Graphics2D) g.create();
         //Cria um contexto gráfico novo
 
-        g2.setStroke(new BasicStroke(tamanhoContorno));
+        g2.setStroke(new BasicStroke(tamanhoContorno, BasicStroke.CAP_ROUND, BasicStroke.CAP_BUTT));
         g2.setColor(contorno);
         g2.drawLine(x1, y1, x2, y2);
 

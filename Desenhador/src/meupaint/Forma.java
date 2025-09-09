@@ -6,12 +6,13 @@ package meupaint;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.Serializable;
 
 /**
  *
  * @author Eddie
  */
-public abstract class Forma {
+public abstract class Forma implements Serializable {
 
     //Variáveis para criação da Forma
     protected int x1;
