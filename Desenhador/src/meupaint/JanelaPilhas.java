@@ -172,9 +172,9 @@ public class JanelaPilhas extends javax.swing.JFrame {
 
     private void checkLimparQuadroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkLimparQuadroActionPerformed
 
-        janelaPrincipal.ativarLimparAlternativo(checkLimparQuadro.isSelected());
-        janelaPrincipal.limparStacks();
-        janelaPrincipal.logLimparAlternativo();
+//        janelaPrincipal.ativarLimparAlternativo(checkLimparQuadro.isSelected());
+//        janelaPrincipal.limparStacks();
+//        janelaPrincipal.logLimparAlternativo();
         setFormaRefazer("");
         setFormaDesfazer("");
         repaint();

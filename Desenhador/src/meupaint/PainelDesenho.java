@@ -30,7 +30,7 @@ public class PainelDesenho extends JPanel implements Serializable {
     private Stack<Stack<Forma>> redoTudo;
 
     private int estadoStack;
-    private boolean limparAlternativo;
+    private boolean limparAlternativo = true;
 
     private boolean pincelAtivo = true;
     private boolean borrachaAtiva;

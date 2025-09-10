@@ -95,6 +95,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         subMenuAbrir = new javax.swing.JMenuItem();
         subMenuSalvar = new javax.swing.JMenuItem();
         subMenuExportar = new javax.swing.JMenuItem();
+        menuFerramentas = new javax.swing.JMenu();
+        checkLog = new javax.swing.JCheckBoxMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Desenhador :3");
@@ -479,6 +481,19 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(menuArquivo);
 
+        menuFerramentas.setText("Ferramentas");
+
+        checkLog.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        checkLog.setText("Ativar Log");
+        checkLog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkLogActionPerformed(evt);
+            }
+        });
+        menuFerramentas.add(checkLog);
+
+        jMenuBar1.add(menuFerramentas);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -806,7 +821,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         JOptionPane.showConfirmDialog(null, "Esta ação irá apagar todo o Quadro de Desenho. Você tem certeza?", "Criar Novo Quadro", JOptionPane.YES_NO_OPTION);
         
         if(JOptionPane.YES_OPTION == 0){
-            painelDesenho.limparListas();
+            painelDesenho.limparStacks();
             atualizarPilhas();
             atualizarDesenhosPilhas();
             labelLog.setForeground(Color.DARK_GRAY);
@@ -814,24 +829,28 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_subMenuNovoActionPerformed
 
+    private void checkLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkLogActionPerformed
+        visibilidadeLog(checkLog.isSelected());
+    }//GEN-LAST:event_checkLogActionPerformed
+
     public void visibilidadeLog(boolean valor) {
         labelLog.setVisible(valor);
         labelLog.revalidate();
     }
 
-    public void ativarLimparAlternativo(boolean valor) {
-        painelDesenho.setLimparAlternativo(valor);
-    }
+//    public void ativarLimparAlternativo(boolean valor) {
+//        painelDesenho.setLimparAlternativo(valor);
+//    }
 
-    public void logLimparAlternativo() {
-        if (painelDesenho.getLimparAlternativo()) {
-            labelLog.setForeground(Color.DARK_GRAY);
-            labelLog.setText("Informação: Ativou o \"Limpar Alternativo\"");
-        } else {
-            labelLog.setForeground(Color.DARK_GRAY);
-            labelLog.setText("Informação: Desativou o \"Limpar Alternativo\"");
-        }
-    }
+//    public void logLimparAlternativo() {
+//        if (painelDesenho.getLimparAlternativo()) {
+//            labelLog.setForeground(Color.DARK_GRAY);
+//            labelLog.setText("Informação: Ativou o \"Limpar Alternativo\"");
+//        } else {
+//            labelLog.setForeground(Color.DARK_GRAY);
+//            labelLog.setText("Informação: Desativou o \"Limpar Alternativo\"");
+//        }
+//    }
 
     public int tamanhoStacks(int stackNum) {
         return painelDesenho.getStackTamanho(stackNum);
@@ -996,6 +1015,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 } else if (painelDesenho.retornarEstado() == 2) {
                     labelLog.setForeground(ORANGE);
                     labelLog.setText("Desfez: " + painelDesenho.redoFormaPeek().getClass().getSimpleName());
+                } else {
+                    labelLog.setForeground(Color.DARK_GRAY);
+                    labelLog.setText("Informação: Não há formas para desfazer");
                 }
                 atualizarDesenhosPilhas();
                 atualizarPilhas();
@@ -1013,6 +1035,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 } else if (painelDesenho.retornarEstado() == 4) {
                     labelLog.setForeground(Color.BLUE);
                     labelLog.setText("Refez: " + painelDesenho.undoFormaPeek().getClass().getSimpleName());
+                } else {
+                    labelLog.setForeground(Color.DARK_GRAY);
+                    labelLog.setText("Informação: Não há formas para refazer");
                 }
                 atualizarDesenhosPilhas();
                 atualizarPilhas();
@@ -1058,11 +1083,13 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToggleButton btnTriangulo;
     private javax.swing.JButton btnUndo;
     private javax.swing.ButtonGroup buttonGroup;
+    private javax.swing.JCheckBoxMenuItem checkLog;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel labelContorno;
     private javax.swing.JLabel labelLog;
     private javax.swing.JSpinner ladosSpinner;
     private javax.swing.JMenu menuArquivo;
+    private javax.swing.JMenu menuFerramentas;
     private meupaint.PainelAvatar painelAvatar;
     private javax.swing.JPanel painelContorno;
     private meupaint.PainelDesenho painelDesenho;
