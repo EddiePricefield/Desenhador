@@ -23,6 +23,8 @@ public class PainelPilhas extends JPanel {
     private String formaRefazer;
 
     Color ORANGE = new Color(201, 94, 8);
+    
+    public PainelPilhas(){}
 
     public PainelPilhas(JanelaPrincipal janelaPrincipal) {
         this.janelaPrincipal = janelaPrincipal;

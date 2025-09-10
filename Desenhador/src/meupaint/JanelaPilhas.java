@@ -11,6 +11,8 @@ package meupaint;
 public class JanelaPilhas extends javax.swing.JFrame {
 
     private JanelaPrincipal janelaPrincipal;
+    
+    public JanelaPilhas(){}
 
     public JanelaPilhas(JanelaPrincipal principal) {
         initComponents();
@@ -29,9 +31,6 @@ public class JanelaPilhas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        PainelFuncionalidades = new javax.swing.JPanel();
-        checkLimparQuadro = new javax.swing.JCheckBox();
-        checkLog = new javax.swing.JCheckBox();
         painelPilhas = new meupaint.PainelPilhas(janelaPrincipal);
         labelDesfazer = new javax.swing.JLabel();
         labelRefazer = new javax.swing.JLabel();
@@ -43,44 +42,6 @@ public class JanelaPilhas extends javax.swing.JFrame {
         setTitle("Depuração das Pilhas");
         setAlwaysOnTop(true);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        PainelFuncionalidades.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-
-        checkLimparQuadro.setText("Ativar \"Limpar Quadro\" Alternativo");
-        checkLimparQuadro.setToolTipText("Ativa o método de usar pilhas para o Limpar Quadro");
-        checkLimparQuadro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkLimparQuadroActionPerformed(evt);
-            }
-        });
-
-        checkLog.setText("Exibir Log");
-        checkLog.setToolTipText("Ativa o histórico de formas no Painel de Desenho");
-        checkLog.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkLogActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout PainelFuncionalidadesLayout = new javax.swing.GroupLayout(PainelFuncionalidades);
-        PainelFuncionalidades.setLayout(PainelFuncionalidadesLayout);
-        PainelFuncionalidadesLayout.setHorizontalGroup(
-            PainelFuncionalidadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PainelFuncionalidadesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(checkLog)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
-                .addComponent(checkLimparQuadro)
-                .addContainerGap())
-        );
-        PainelFuncionalidadesLayout.setVerticalGroup(
-            PainelFuncionalidadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PainelFuncionalidadesLayout.createSequentialGroup()
-                .addGroup(PainelFuncionalidadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(checkLog)
-                    .addComponent(checkLimparQuadro))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
 
         painelPilhas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -145,9 +106,7 @@ public class JanelaPilhas extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PainelFuncionalidades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(painelPilhas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(painelPilhas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -155,31 +114,12 @@ public class JanelaPilhas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(painelPilhas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(PainelFuncionalidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(14, 14, 14))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
-    private void checkLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkLogActionPerformed
-
-        janelaPrincipal.visibilidadeLog(checkLog.isSelected());
-
-    }//GEN-LAST:event_checkLogActionPerformed
-
-    private void checkLimparQuadroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkLimparQuadroActionPerformed
-
-//        janelaPrincipal.ativarLimparAlternativo(checkLimparQuadro.isSelected());
-//        janelaPrincipal.limparStacks();
-//        janelaPrincipal.logLimparAlternativo();
-        setFormaRefazer("");
-        setFormaDesfazer("");
-        repaint();
-
-    }//GEN-LAST:event_checkLimparQuadroActionPerformed
 
     public void setFormaRefazer(String formaRefazer) {
         painelPilhas.setFormaRefazer(formaRefazer);
@@ -190,9 +130,6 @@ public class JanelaPilhas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel PainelFuncionalidades;
-    private javax.swing.JCheckBox checkLimparQuadro;
-    private javax.swing.JCheckBox checkLog;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
