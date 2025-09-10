@@ -85,9 +85,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         labelContorno = new javax.swing.JLabel();
         btnUndo = new javax.swing.JButton();
         btnRedo = new javax.swing.JButton();
-        painelOpcoes = new javax.swing.JPanel();
         btnRefresh = new javax.swing.JButton();
-        btnConfigs = new javax.swing.JButton();
+        painelOpcoes = new javax.swing.JPanel();
         painelAvatar = new meupaint.PainelAvatar();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuArquivo = new javax.swing.JMenu();
@@ -96,6 +95,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         subMenuSalvar = new javax.swing.JMenuItem();
         subMenuExportar = new javax.swing.JMenuItem();
         menuFerramentas = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         checkLog = new javax.swing.JCheckBoxMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -138,7 +138,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             .addGroup(painelDesenhoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(labelLog)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(1089, Short.MAX_VALUE))
         );
         painelDesenhoLayout.setVerticalGroup(
             painelDesenhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -298,6 +298,16 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnRefresh.setText("Limpar Quadro");
+        btnRefresh.setActionCommand("");
+        btnRefresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRefresh.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelFormasLayout = new javax.swing.GroupLayout(panelFormas);
         panelFormas.setLayout(panelFormasLayout);
         panelFormasLayout.setHorizontalGroup(
@@ -331,6 +341,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 .addComponent(sliderContorno, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelContorno, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRefresh)
                 .addContainerGap())
         );
         panelFormasLayout.setVerticalGroup(
@@ -351,27 +363,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                     .addComponent(btnUndo)
                     .addComponent(btnRedo)
                     .addComponent(btnPincel)
-                    .addComponent(btnBorracha))
+                    .addComponent(btnBorracha)
+                    .addComponent(btnRefresh))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        btnRefresh.setText("Limpar Quadro");
-        btnRefresh.setActionCommand("");
-        btnRefresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnRefresh.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRefreshActionPerformed(evt);
-            }
-        });
-
-        btnConfigs.setText("Depuração");
-        btnConfigs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnConfigs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfigsActionPerformed(evt);
-            }
-        });
 
         painelAvatar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         painelAvatar.setToolTipText("Desenvolvido por EddiePricefield");
@@ -396,29 +391,20 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         );
         painelAvatarLayout.setVerticalGroup(
             painelAvatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 70, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout painelOpcoesLayout = new javax.swing.GroupLayout(painelOpcoes);
         painelOpcoes.setLayout(painelOpcoesLayout);
         painelOpcoesLayout.setHorizontalGroup(
             painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelOpcoesLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelOpcoesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(painelAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnConfigs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         painelOpcoesLayout.setVerticalGroup(
             painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelOpcoesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnConfigs)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
             .addComponent(painelAvatar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -483,6 +469,15 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         menuFerramentas.setText("Ferramentas");
 
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem1.setText("Depuração de Pilhas");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        menuFerramentas.add(jMenuItem1);
+
         checkLog.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         checkLog.setText("Ativar Log");
         checkLog.addActionListener(new java.awt.event.ActionListener() {
@@ -505,7 +500,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(panelFormas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(painelOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(painelDesenho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -661,12 +656,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         labelLog.setText("Informação: Alterou o tamanho do contorno");
 
     }//GEN-LAST:event_sliderContornoStateChanged
-
-    private void btnConfigsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfigsActionPerformed
-
-        janelaPilhas.setVisible(true);
-
-    }//GEN-LAST:event_btnConfigsActionPerformed
 
     private void painelAvatarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelAvatarMouseEntered
 
@@ -832,6 +821,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private void checkLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkLogActionPerformed
         visibilidadeLog(checkLog.isSelected());
     }//GEN-LAST:event_checkLogActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        janelaPilhas.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     public void visibilidadeLog(boolean valor) {
         labelLog.setVisible(valor);
@@ -1072,7 +1065,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnBorracha;
-    private javax.swing.JButton btnConfigs;
     private javax.swing.JToggleButton btnElipse;
     private javax.swing.JToggleButton btnLinha;
     private javax.swing.JToggleButton btnPincel;
@@ -1085,6 +1077,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JCheckBoxMenuItem checkLog;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JLabel labelContorno;
     private javax.swing.JLabel labelLog;
     private javax.swing.JSpinner ladosSpinner;
